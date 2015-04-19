@@ -18,12 +18,14 @@ class Cliente {
 private:
 	string nome;
 	int idade;
+	int NIF;
 	vector<string> pontosInteresse;
 public:
 	void setNome(string name);
 	void setIdade(int age);
 	string getNome();
 	int getIdade();
+	int getNIF();
 };
 
 

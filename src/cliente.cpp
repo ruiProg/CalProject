@@ -22,5 +22,7 @@ void Cliente::setIdade(int age){
 void Cliente::setNome(string name){
 	nome = name;
 };
-
+int Cliente::getNIF(){
+	return NIF;
+}
 
