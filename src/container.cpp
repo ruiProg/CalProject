@@ -60,6 +60,11 @@ void Container::loadStreets(){
 		graph.addStreet(2,13);
 		graph.addStreet(4,13);
 		graph.addStreet(5,7);
+		graph.addStreet(13,27);
+		graph.addStreet(13,10);
+		graph.addStreet(10,27);
+		graph.addStreet(10,30);
+
 
 }
 
