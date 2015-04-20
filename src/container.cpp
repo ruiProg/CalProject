@@ -22,8 +22,45 @@ void Container::createGraph(ReadMap mapa){
 	}
 
 	//example
-	graph.addStreet(1,2);
-	graph.addStreet(5,8);
+	loadStreets();
+
+
+}
+
+void Container::loadStreets(){
+		graph.addStreet(0,2);
+		graph.addStreet(0,18);
+		graph.addStreet(18,25);
+		graph.addStreet(25,9);
+		graph.addStreet(9,11);
+		graph.addStreet(11,25);
+		graph.addStreet(25,18);
+		graph.addStreet(9,18);
+		graph.addStreet(18,2);
+		graph.addStreet(25,6);
+		graph.addStreet(6,8);
+		graph.addStreet(8,22);
+		graph.addStreet(22,7);
+		graph.addStreet(7,9);
+		graph.addStreet(22,11);
+		graph.addStreet(8,11);
+		graph.addStreet(8,12);
+		graph.addStreet(9,22);
+		graph.addStreet(11,6);
+		graph.addStreet(22,12);
+		graph.addStreet(2,1);
+		graph.addStreet(9,1);
+		graph.addStreet(7,1);
+		graph.addStreet(7,5);
+		graph.addStreet(1,4);
+		graph.addStreet(5,4);
+		graph.addStreet(4,5);
+		graph.addStreet(5,12);
+		graph.addStreet(1,13);
+		graph.addStreet(2,13);
+		graph.addStreet(4,13);
+		graph.addStreet(5,7);
+
 }
 
 void Container::displayGraph(){

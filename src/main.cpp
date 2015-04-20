@@ -36,7 +36,7 @@ int main(){
 	Graph graph;
 	Container container;
 	container.createGraph(mapa);
-	//container.displayGraph();
+	container.displayGraph();
 
 	Cliente cliente;
 	cliente.setIdade(20);

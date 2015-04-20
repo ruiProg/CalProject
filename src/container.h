@@ -22,6 +22,7 @@ private:
 public:
 	void createGraph(ReadMap mapa);
 	void loadClientes();
+	void loadStreets();
 	void saveClientes();
 	void savePontosInteresses();
 	void displayGraph();
