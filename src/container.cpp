@@ -62,8 +62,37 @@ void Container::loadStreets(){
 		graph.addStreet(13,10);
 		graph.addStreet(10,27);
 		graph.addStreet(10,30);
-
-
+		graph.addStreet(12,15);
+		graph.addStreet(12,16);
+		graph.addStreet(15,16);
+		graph.addStreet(12,7);
+		graph.addStreet(16,17);
+		graph.addStreet(17,12);
+		graph.addStreet(17,3);
+		graph.addStreet(3,26);
+		graph.addStreet(3,27);
+		graph.addStreet(10,19);
+		graph.addStreet(27,30);
+		graph.addStreet(27,14);
+		graph.addStreet(30,14);
+		graph.addStreet(14,30);
+		graph.addStreet(14,19);
+		graph.addStreet(19,10);
+		graph.addStreet(19,30);
+		graph.addStreet(19,21);
+		graph.addStreet(21,20);
+		graph.addStreet(20,14);
+		graph.addStreet(19,23);
+		graph.addStreet(20,23);
+		graph.addStreet(23,30);
+		graph.addStreet(23,27);
+		graph.addStreet(27,5);
+		graph.addStreet(26,28);
+		graph.addStreet(28,29);
+		graph.addStreet(29,26);
+		graph.addStreet(26,24);
+		graph.addStreet(24,28);
+		graph.addStreet(24,23);
 }
 
 void Container::displayGraph(){
