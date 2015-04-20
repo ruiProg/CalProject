@@ -23,8 +23,6 @@ void Container::createGraph(ReadMap mapa){
 
 	//example
 	loadStreets();
-
-
 }
 
 void Container::loadStreets(){
@@ -163,8 +161,10 @@ void Container::saveClientes(){
 		save << clientes.at(i).getNIF() << '\n';
 
 		for(int j=0; j < clientes.at(i).getPontosInteresse().size(); j++)
-			save << clientes.at(i).getPontosInteresse().at(j) << '\n';
-		flush(save);
+			save << clientes.at(i).getPontosInteresse().at(j);
+
+		if(i != clientes.size() -1)
+			save << endl;
 	}
 
 	save.close();
@@ -189,8 +189,6 @@ void Container::savePontosInteresses(){
 		if(i != graph.getListIp().size() -1)
 			save << endl;
 	}
-
-	cout << "Erro\n";
 
 	save.close();
 }
