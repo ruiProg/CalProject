@@ -69,6 +69,11 @@ Street::Street(InterestPoint* ip, double distance){
 	this->distance = distance;
 }
 
+InterestPoint* Street::getDest(){
+
+	return dest;
+}
+
 void Graph::initialize() {
 
 	limitsLatitude.first = 180;
@@ -186,6 +191,19 @@ bool Graph::removeStreet(const string &src, const string &dest){
 		return false;
 
 	return ipSrc->removeStreetTo(ipDest);
+}
+
+int Graph::find(InterestPoint* src, InterestPoint* dest){
+
+	string ipName = dest->getName();
+
+	for(int i=0; i < src->getConections().size(); i++){
+
+		if(ipName == src->getConections().at(i).dest->name)
+			return i;
+	}
+
+	return -1;
 }
 
 void Graph::reorderLimits(){

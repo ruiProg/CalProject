@@ -44,6 +44,8 @@ public:
 	Street(InterestPoint* ip, double distance);
 	friend class InterestPoint;
 	friend class Graph;
+
+	InterestPoint* getDest();
 };
 
 class Graph {
@@ -65,6 +67,7 @@ public:
 	vector<InterestPoint*> getListIp();
 	pair<double, double> getLimitsLatitude();
 	pair<double, double> getLimitsLongitude();
+	int find(InterestPoint* src, InterestPoint* dest);
 };
 
 #endif /* GRAPH_H_ */

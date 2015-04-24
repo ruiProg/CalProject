@@ -19,9 +19,8 @@ void createGraph(Graph *graph, ReadMap mapa){
 	}
 
 	//example
-	graph->addStreet(graph->getListIp().at(0)->getName(),graph->getListIp().at(1)->getName(), calcDistance(graph->getListIp().at(0),graph->getListIp().at(1)));
+	//graph->addStreet(graph->getListIp().at(0)->getName(),graph->getListIp().at(3)->getName(), calcDistance(graph->getListIp().at(0),graph->getListIp().at(1)));
 }
-
 
 double calcDistance(InterestPoint* src, InterestPoint* dest){
 
