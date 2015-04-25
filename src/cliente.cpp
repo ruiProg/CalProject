@@ -17,6 +17,11 @@ string Cliente::getNome(){
 	return nome;
 };
 
+int Cliente::getNIF(){
+
+	return NIF;
+}
+
 void Cliente::setIdade(int age){
 
 	idade = age;
@@ -27,9 +32,9 @@ void Cliente::setNome(string name){
 	nome = name;
 };
 
-int Cliente::getNIF(){
+void Cliente::setNIF(int NIF){
 
-	return NIF;
+	this->NIF = NIF;
 }
 
 bool Cliente::addPontoInteresse(string pi){
@@ -55,4 +60,9 @@ bool Cliente::removePontoInteresse(string pi){
 vector<string> Cliente::getPontosInteresse(){
 
 	return pontosInteresse;
+}
+
+void Cliente::clearPontosInteresse(){
+
+	pontosInteresse.clear();
 }

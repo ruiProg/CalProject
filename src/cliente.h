@@ -18,7 +18,7 @@ class Cliente {
 private:
 	string nome;
 	int idade;
-	int NIF;  //isto é nao um problema de BDAD, porque guardar NIF?
+	int NIF;
 	vector<string> pontosInteresse;
 	const static int maxPontos = 5;
 public:
@@ -27,9 +27,11 @@ public:
 	string getNome();
 	int getIdade();
 	int getNIF();
+	void setNIF(int NIF);
 	bool addPontoInteresse(string pi);
 	bool removePontoInteresse(string pi);
 	vector<string> getPontosInteresse();
+	void clearPontosInteresse();
 };
 
 

@@ -13,6 +13,7 @@
 void Container::createGraph(ReadMap mapa){
 
 	for(int i = 0; i < mapa.getInterestPoints().size();i++){
+
 		Locals* local = mapa.getInterestPoints().at(i);
 		pair<double, double> coords;
 		coords.first = local->getLongitude();
@@ -21,7 +22,8 @@ void Container::createGraph(ReadMap mapa){
 	}
 
 	//example
-	graph.addStreet(0,3);
+	graph.addStreet(1,2);
+	graph.addStreet(5,8);
 }
 
 void Container::displayGraph(){
@@ -52,7 +54,7 @@ void Container::displayGraph(){
 
 		for(int j=0; j < nbStreets; j++){
 
-			gv->addEdge(idStreet++,i,graph.find(graph.getListIp().at(i)->getConections().at(i).getDest()),EdgeType::DIRECTED);
+			gv->addEdge(idStreet++,i,graph.find(graph.getListIp().at(i)->getConections().at(j).getDest()),EdgeType::DIRECTED);
 
 		}
 	}
@@ -87,6 +89,9 @@ void Container::loadClientes(){
 		getline(load,text);
 		cliente.setIdade(atoi(text.c_str()));
 
+		getline(load,text);
+		cliente.setNIF(atoi(text.c_str()));
+
 		while(text != "Cliente:"){
 			getline(load,text);
 			cliente.addPontoInteresse(text);
@@ -113,6 +118,7 @@ void Container::saveClientes(){
 		save << "Cliente:\n";
 		save << clientes.at(i).getNome() << '\n';
 		save << clientes.at(i).getIdade() << '\n';
+		save << clientes.at(i).getNIF() << '\n';
 
 		for(int j=0; j < clientes.at(i).getPontosInteresse().size(); j++)
 			save << clientes.at(i).getPontosInteresse().at(j) << '\n';
@@ -121,7 +127,6 @@ void Container::saveClientes(){
 
 	save.close();
 }
-
 
 void Container::addCliente(Cliente cliente){
 

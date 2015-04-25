@@ -50,7 +50,7 @@ bool Bus::removeCliente(Cliente* cli){
 	bool removed = false;
 
 	for(int i = 0; i < clients.size();i++){
-		if(clients.at(i)->getNIF()== cli->getNIF()){
+		if(clients.at(i)->getNIF() == cli->getNIF()){
 			removed = true;
 		}else
 			result.push_back(clients.at(i));

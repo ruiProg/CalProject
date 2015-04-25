@@ -42,12 +42,19 @@ int main(){
 	cliente.setIdade(20);
 	cliente.setNome("Manuel");
 	cliente.addPontoInteresse("Torre dos Clerigos");
+	cliente.addPontoInteresse("Torre da Reboleira");
+	cliente.addPontoInteresse("Palacio das Sereias");
 
 	container.addCliente(cliente);
+
+	cliente.setIdade(25);
+	cliente.setNome("Maria");
+	cliente.addPontoInteresse("Torre da Cidade");
+	cliente.addPontoInteresse("Centro de Congressos do Porto");
+
 	container.saveClientes();
 
 	getchar();
-
 
 	return 0;
 }
