@@ -8,6 +8,8 @@
 #include "Locals.h"
 
 #include <fstream>
+#include <sstream>
+#include <iomanip>
 #include "container.h"
 
 void Container::createGraph(ReadMap mapa){
@@ -26,78 +28,80 @@ void Container::createGraph(ReadMap mapa){
 }
 
 void Container::loadStreets(){
-		graph.addStreet(0,2);
-		graph.addStreet(0,18);
-		graph.addStreet(18,25);
-		graph.addStreet(25,9);
-		graph.addStreet(9,11);
-		graph.addStreet(11,25);
-		graph.addStreet(25,18);
-		graph.addStreet(9,18);
-		graph.addStreet(18,2);
-		graph.addStreet(25,6);
-		graph.addStreet(6,8);
-		graph.addStreet(8,22);
-		graph.addStreet(22,7);
-		graph.addStreet(7,9);
-		graph.addStreet(22,11);
-		graph.addStreet(8,11);
-		graph.addStreet(8,12);
-		graph.addStreet(9,22);
-		graph.addStreet(11,6);
-		graph.addStreet(22,12);
-		graph.addStreet(2,1);
-		graph.addStreet(9,1);
-		graph.addStreet(7,1);
-		graph.addStreet(7,5);
-		graph.addStreet(1,4);
-		graph.addStreet(5,4);
-		graph.addStreet(4,5);
-		graph.addStreet(5,12);
-		graph.addStreet(1,13);
-		graph.addStreet(2,13);
-		graph.addStreet(4,13);
-		graph.addStreet(5,7);
-		graph.addStreet(13,27);
-		graph.addStreet(13,10);
-		graph.addStreet(10,27);
-		graph.addStreet(10,30);
-		graph.addStreet(12,15);
-		graph.addStreet(12,16);
-		graph.addStreet(15,16);
-		graph.addStreet(12,7);
-		graph.addStreet(16,17);
-		graph.addStreet(17,12);
-		graph.addStreet(17,3);
-		graph.addStreet(3,26);
-		graph.addStreet(3,27);
-		graph.addStreet(10,19);
-		graph.addStreet(27,30);
-		graph.addStreet(27,14);
-		graph.addStreet(30,14);
-		graph.addStreet(14,30);
-		graph.addStreet(14,19);
-		graph.addStreet(19,10);
-		graph.addStreet(19,30);
-		graph.addStreet(19,21);
-		graph.addStreet(21,20);
-		graph.addStreet(20,14);
-		graph.addStreet(19,23);
-		graph.addStreet(20,23);
-		graph.addStreet(23,30);
-		graph.addStreet(23,27);
-		graph.addStreet(27,5);
-		graph.addStreet(26,28);
-		graph.addStreet(28,29);
-		graph.addStreet(29,26);
-		graph.addStreet(26,24);
-		graph.addStreet(24,28);
-		graph.addStreet(24,23);
+
+	graph.addStreet(0,2);
+	graph.addStreet(0,18);
+	graph.addStreet(18,25);
+	graph.addStreet(25,9);
+	graph.addStreet(9,11);
+	graph.addStreet(11,25);
+	graph.addStreet(25,18);
+	graph.addStreet(9,18);
+	graph.addStreet(18,2);
+	graph.addStreet(25,6);
+	graph.addStreet(6,8);
+	graph.addStreet(8,22);
+	graph.addStreet(22,7);
+	graph.addStreet(7,9);
+	graph.addStreet(22,11);
+	graph.addStreet(8,11);
+	graph.addStreet(8,12);
+	graph.addStreet(9,22);
+	graph.addStreet(11,6);
+	graph.addStreet(22,12);
+	graph.addStreet(2,1);
+	graph.addStreet(9,1);
+	graph.addStreet(7,1);
+	graph.addStreet(7,5);
+	graph.addStreet(1,4);
+	graph.addStreet(5,4);
+	graph.addStreet(4,5);
+	graph.addStreet(5,12);
+	graph.addStreet(1,13);
+	graph.addStreet(2,13);
+	graph.addStreet(4,13);
+	graph.addStreet(5,7);
+	graph.addStreet(13,27);
+	graph.addStreet(13,10);
+	graph.addStreet(10,27);
+	graph.addStreet(10,30);
+	graph.addStreet(12,15);
+	graph.addStreet(12,16);
+	graph.addStreet(15,16);
+	graph.addStreet(12,7);
+	graph.addStreet(16,17);
+	graph.addStreet(17,12);
+	graph.addStreet(17,3);
+	graph.addStreet(3,26);
+	graph.addStreet(3,27);
+	graph.addStreet(10,19);
+	graph.addStreet(27,30);
+	graph.addStreet(27,14);
+	graph.addStreet(30,14);
+	graph.addStreet(14,30);
+	graph.addStreet(14,19);
+	graph.addStreet(19,10);
+	graph.addStreet(19,30);
+	graph.addStreet(19,21);
+	graph.addStreet(21,20);
+	graph.addStreet(20,14);
+	graph.addStreet(19,23);
+	graph.addStreet(20,23);
+	graph.addStreet(23,30);
+	graph.addStreet(23,27);
+	graph.addStreet(27,5);
+	graph.addStreet(26,28);
+	graph.addStreet(28,29);
+	graph.addStreet(29,26);
+	graph.addStreet(26,24);
+	graph.addStreet(24,28);
+	graph.addStreet(24,23);
 }
 
 void Container::displayGraph(){
 
 	int windowSize = 1024;
+	stringstream ss;
 
 	GraphViewer* gv = new GraphViewer(1920, 1080, false);
 	gv->createWindow(windowSize, windowSize);
@@ -123,8 +127,10 @@ void Container::displayGraph(){
 
 		for(int j=0; j < nbStreets; j++){
 
-			gv->addEdge(idStreet++,i,graph.find(graph.getListIp().at(i)->getConections().at(j).getDest()),EdgeType::DIRECTED);
-
+			gv->addEdge(idStreet,i,graph.find(graph.getListIp().at(i)->getConections().at(j).getDest()),EdgeType::DIRECTED);
+			ss << graph.getListIp().at(i)->getConections().at(j).getDistance();
+			gv->setEdgeLabel(idStreet++,ss.str());
+			ss.str("");
 		}
 	}
 

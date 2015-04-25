@@ -52,6 +52,7 @@ public:
 	friend class Graph;
 
 	InterestPoint* getDest();
+	double getDistance();
 };
 
 class Graph {
