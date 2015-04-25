@@ -52,6 +52,8 @@ int main(){
 	cliente.addPontoInteresse("Torre da Cidade");
 	cliente.addPontoInteresse("Centro de Congressos do Porto");
 
+	container.addCliente(cliente);
+
 	container.saveClientes();
 	container.savePontosInteresses();
 
