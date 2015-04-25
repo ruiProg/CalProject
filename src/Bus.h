@@ -20,7 +20,7 @@ public:
 	Bus(vector<Cliente*> clients);
 	Bus(int capacidade, vector<Cliente*> clients);
 	int getCapacidade();
-	vector<Cliente> getClientes();
+	vector<Cliente*> getClientes();
 	bool addCliente(Cliente* cli);
 	bool removeCliente(Cliente* cli);
 	void setClientes(vector<Cliente*> clients);

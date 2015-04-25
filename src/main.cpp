@@ -43,6 +43,9 @@ int main(){
 		cout <<"Nome ponto de interesse: "<< graph.getListIp().at(i)->getName()<<'\n';
 		cout <<  graph.getListIp().at(i)->getConections().size() << '\n';
 
+		for(int j=0; j < graph.getListIp().at(i)->getConections().size(); j++)
+			cout << "Nome destino: " << graph.getListIp().at(i)->getConections().at(j).getDest()->getName() << '\n';
+
 		//cout << "Latitude do ponto de interesse: " <<setprecision(10)<<mapa.getInterestPoints().at(i)->getLatitude()<<'\n';
 		//cout << "Longitude do ponto de interesse: " <<setprecision(10)<<mapa.getInterestPoints().at(i)->getLongitude()<<'\n';
 	}

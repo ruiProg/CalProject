@@ -9,11 +9,10 @@
 
 void displayGraph(Graph route){
 
-	int windowWidth = 1024;
-	int windowHeight = 1024;
+	int windowSize = 1024;
 
 	GraphViewer *gv = new GraphViewer(1920, 1080, false);
-	gv->createWindow(windowWidth, windowHeight);
+	gv->createWindow(windowSize, windowSize);
 
 	gv->defineVertexColor(WHITE);
 	gv->defineEdgeColor(BLUE);
@@ -29,14 +28,14 @@ void displayGraph(Graph route){
 		double xLocation = (route.getListIp().at(i)->getCoords().first - route.getLimitsLongitude().first) / deltaLongitude;
 		double yLocation = (route.getListIp().at(i)->getCoords().second - route.getLimitsLatitude().first) / deltaLatitude;
 
-		gv->addNode(id,(int) (xLocation*windowWidth),windowHeight - (int) (yLocation*windowHeight));
+		gv->addNode(id,(int) (xLocation*windowSize),windowSize - (int) (yLocation*windowSize));
 		gv->setVertexLabel(id++,route.getListIp().at(i)->getName());
 
 		int nbStreets = route.getListIp().at(i)->getConections().size();
 
 		for(int j=0; j < nbStreets; j++){
 
-			gv->addEdge(idStreet++,i,route.find(route.getListIp().at(i),route.getListIp().at(i)->getConections().at(i).getDest()),EdgeType::DIRECTED);
+			gv->addEdge(idStreet++,i,route.find(route.getListIp().at(i)->getConections().at(i).getDest()),EdgeType::DIRECTED);
 
 		}
 	}

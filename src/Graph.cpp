@@ -140,6 +140,17 @@ bool Graph::addStreet(const string &src, const string &dest, double distance){
 	return true;
 }
 
+bool Graph::addStreet(int indexSrc, int indexDest){
+
+	if(indexSrc < 0 || indexSrc >= listIP.size() ||indexDest < 0 || indexDest >= listIP.size())
+		return false;
+
+	InterestPoint* src = listIP.at(indexSrc);
+	InterestPoint* dest = listIP.at(indexDest);
+
+	return addStreet(src->getName(), dest->getName(), distance(src,dest));
+}
+
 bool Graph::removeInterestPoint(const string &ip) {
 
 	typename vector<InterestPoint*>::iterator it= listIP.begin();
@@ -193,17 +204,36 @@ bool Graph::removeStreet(const string &src, const string &dest){
 	return ipSrc->removeStreetTo(ipDest);
 }
 
-int Graph::find(InterestPoint* src, InterestPoint* dest){
+int Graph::find(InterestPoint* ip){
 
-	string ipName = dest->getName();
+	for(int i=0; i < listIP.size(); i++){
 
-	for(int i=0; i < src->getConections().size(); i++){
-
-		if(ipName == src->getConections().at(i).dest->name)
+		if(listIP.at(i)->getName() == ip->getName())
 			return i;
 	}
 
 	return -1;
+}
+
+double Graph::calcDistance(InterestPoint* src, InterestPoint* dest){
+
+	double lat1 = degreesToRadians(src->getCoords().second);
+	double lat2 = degreesToRadians(dest->getCoords().second);
+
+	double deltaLatitude = src->getCoords().second - dest->getCoords().second;
+	double deltaLongitude = src->getCoords().first - dest->getCoords().first;
+
+	double deltaLat = degreesToRadians(deltaLatitude);
+	double deltaLon = degreesToRadians(deltaLongitude);
+
+	double a = pow(sin(deltaLat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(deltaLon / 2), 2);
+	double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+	return c * EARTH_RADIUS;
+}
+
+double degreesToRadians(double value) {
+
+	return (value * PI) / 180;
 }
 
 void Graph::reorderLimits(){

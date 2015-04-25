@@ -11,8 +11,14 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <cmath>
+
+#define EARTH_RADIUS 6371.0
+#define PI acos(-1)
 
 using namespace std;
+
+double degreesToRadians(double value);
 
 class Street;
 class Graph;
@@ -61,13 +67,15 @@ public:
 	Graph();
 	bool addInterestPoint(const string &ip, pair<double, double> coords);
 	bool addStreet(const string &src, const string &dest, double distance);
+	bool addStreet(int indexSrc, int indexDest);
 	bool removeInterestPoint(const string &ip);
 	bool removeStreet(const string &src, const string &dest);
 
 	vector<InterestPoint*> getListIp();
 	pair<double, double> getLimitsLatitude();
 	pair<double, double> getLimitsLongitude();
-	int find(InterestPoint* src, InterestPoint* dest);
+	int find(InterestPoint* ip);
+	double calcDistance(InterestPoint* src, InterestPoint* dest);
 };
 
 #endif /* GRAPH_H_ */
