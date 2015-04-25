@@ -11,9 +11,8 @@
 #include <iostream>
 #include <string>
 
+#include "container.h"
 #include "Locals.h"
-#include "graphCreater.h"
-#include "routeView.h"
 
 
 using namespace std;
@@ -35,19 +34,20 @@ int main(){
 	cout << "Tamanho: "<< mapa.getInterestPoints().size()<<endl;
 
 	Graph graph;
-	createGraph(&graph, mapa);
-	displayGraph(graph);
+	Container container;
+	container.createGraph(mapa);
+	container.displayGraph();
+
+	Cliente cliente;
+	cliente.setIdade(20);
+	cliente.setNome("Manuel");
+	cliente.addPontoInteresse("Torre dos Clerigos");
+
+	container.addCliente(cliente);
+	container.saveClientes();
+
 	getchar();
 
-	for(int i = 0; i < graph.getListIp().size();i++){
-		cout <<"Nome ponto de interesse: "<< graph.getListIp().at(i)->getName()<<'\n';
-		cout <<  graph.getListIp().at(i)->getConections().size() << '\n';
 
-		for(int j=0; j < graph.getListIp().at(i)->getConections().size(); j++)
-			cout << "Nome destino: " << graph.getListIp().at(i)->getConections().at(j).getDest()->getName() << '\n';
-
-		//cout << "Latitude do ponto de interesse: " <<setprecision(10)<<mapa.getInterestPoints().at(i)->getLatitude()<<'\n';
-		//cout << "Longitude do ponto de interesse: " <<setprecision(10)<<mapa.getInterestPoints().at(i)->getLongitude()<<'\n';
-	}
 	return 0;
 }
