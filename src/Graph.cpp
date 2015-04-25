@@ -148,12 +148,6 @@ bool Graph::addStreet(int indexSrc, int indexDest){
 	InterestPoint* src = listIP.at(indexSrc);
 	InterestPoint* dest = listIP.at(indexDest);
 
-	for(int i=0; i < listIP.size(); i++)
-		cout << listIP.at(i)->getName() << '\n';
-
-	cout << src->getName() << '\n';
-	cout << dest->getName() << '\n';
-
 	return addStreet(src->getName(), dest->getName(), distance(src,dest));
 }
 

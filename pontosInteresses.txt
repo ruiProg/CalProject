@@ -1,0 +1,31 @@
+Id: 0, Nome:Linha D
+Id: 1, Nome:Ponte Dom Luis I (tabuleiro superior)
+Id: 2, Nome:Ponte Dom Luis I (tabuleiro inferior)
+Id: 3, Nome:Palacio das Sereias
+Id: 4, Nome:Se Catedral
+Id: 5, Nome:Torre da Cidade
+Id: 6, Nome:Torre da Reboleira
+Id: 7, Nome:Mercado Ferreira Borges
+Id: 8, Nome:Igreja de Sao Francisco
+Id: 9, Nome:Torre Medieval
+Id: 10, Nome:Teatro Nacional Sao Joao
+Id: 11, Nome:Fonte Monumental
+Id: 12, Nome:Muralha Fernandina
+Id: 13, Nome:Capela dos Alfaiates
+Id: 14, Nome:Igreja de Santo Antonio (Congregados)
+Id: 15, Nome:Museu dos Transportes e Comunicacoes
+Id: 16, Nome:Alfandega do Porto do Douro
+Id: 17, Nome:Centro de Congressos do Porto
+Id: 18, Nome:Ponte Pensil
+Id: 19, Nome:Cafe Elite
+Id: 20, Nome:Teatro Municipal Rivoli
+Id: 21, Nome:Perola do Bolhao
+Id: 22, Nome:Convento dos Franciscanos
+Id: 23, Nome:Livraria Lello & Irmao
+Id: 24, Nome:Palacio Real das Carrancas
+Id: 25, Nome:Muralha Fernandina (Arcadas)
+Id: 26, Nome:Jardins do Palacio de Cristal
+Id: 27, Nome:Torre dos Clerigos
+Id: 28, Nome:Quinta da Macieirinha
+Id: 29, Nome:Jardins da Casa Tait
+Id: 30, Nome:Convento de Sao Bento de Ave-Maria

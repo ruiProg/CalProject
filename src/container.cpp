@@ -128,6 +128,32 @@ void Container::saveClientes(){
 	save.close();
 }
 
+void Container::savePontosInteresses(){
+
+	ofstream save;
+
+	save.open("pontosInteresses.txt");
+
+	if(!save.is_open() || save.fail()){
+		cerr << "Não consegue abrir pontosInteresse.txt\n";
+		return;
+	}
+
+	for(int i=0; i < graph.getListIp().size(); i++){
+
+		save << "Id: " << i;
+		save << ", Nome:" << graph.getListIp().at(i)->getName();
+
+		if(i != graph.getListIp().size() -1)
+			save << endl;
+	}
+
+	cout << "Erro\n";
+
+	save.close();
+}
+
+
 void Container::addCliente(Cliente cliente){
 
 	clientes.push_back(cliente);

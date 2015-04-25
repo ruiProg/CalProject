@@ -36,7 +36,7 @@ int main(){
 	Graph graph;
 	Container container;
 	container.createGraph(mapa);
-	container.displayGraph();
+	//container.displayGraph();
 
 	Cliente cliente;
 	cliente.setIdade(20);
@@ -53,6 +53,7 @@ int main(){
 	cliente.addPontoInteresse("Centro de Congressos do Porto");
 
 	container.saveClientes();
+	container.savePontosInteresses();
 
 	getchar();
 

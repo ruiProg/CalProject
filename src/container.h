@@ -23,6 +23,7 @@ public:
 	void createGraph(ReadMap mapa);
 	void loadClientes();
 	void saveClientes();
+	void savePontosInteresses();
 	void displayGraph();
 	void addCliente(Cliente cliente);
 	void removeCliente(string name);
