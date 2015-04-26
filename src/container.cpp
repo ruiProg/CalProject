@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include<stack>
 #include <set>
 #include "container.h"
 
@@ -145,10 +146,102 @@ void Container::loadMatrix(){
 			}
 		}
 	}
-
 	return;
 }
 
+vector<InterestPoint*> Container::makePath(vector<string> points){ // estes pontos já não se encontram repetidos
+
+	set<pair<int,string>> interestpoints;
+
+	/////////////inicio do cancro LOAD DOS IDS E DOS NOMES
+	for(int i = 0 ; i < points.size(); i++){
+		for(int j = 0; j < graph.getListIp().size();j++){
+			if(graph.getListIp().at(j)->getName()== points.at(i)){
+				pair<int,string> novo;
+				novo.first = j;
+				novo.second = points.at(i);
+				interestpoints.insert(novo);
+				break;
+			}
+		}
+	}
+	/////////////fim do cancro
+
+	vector<string> res;
+
+	//load do primeiro ponto
+
+	set<pair<int,string>>::iterator it = interestpoints.begin();
+	set<pair<int,string>>::iterator itremove;
+
+	pair<double,vector<InterestPoint*> > mais_curto = matrix[0][(*it).first];
+	it++;
+
+	for(it; it!= interestpoints.end();it++){
+		if(mais_curto.first > (*it).first){
+			mais_curto = (*it);
+			itremove = it;
+		}
+	}
+
+	interestpoints.erase(itremove);
+	stack<string> interestpoints2;
+	set<pair<int,string>>::iterator it = interestpoints.begin();
+	for(int i = 0; i < interestpoints.size();i++){
+		string nome = (*it).second;
+		interestpoints2.push(nome);
+	}
+	while(!interestpoints2.empty()){
+
+		set<pair<int,string>>::iterator it = points.begin();
+		for(it; it!= points.end();it++){
+			if((*it).second == interestpoints2.top()){
+				interestpoints.erase(it);
+				break;
+			}
+		}
+		interestpoints2.pop();
+	}
+
+
+	//fim do load do primeiro ponto
+
+	it = interestpoints.begin();
+	while(interestpoints.size() != 1){
+
+
+
+		if(it == interestpoints.end())
+		{
+			//retirar do interest points todos os que já foram usados
+			it = interestpoints.begin();
+		}
+	}
+
+
+	//load do ultimo
+
+
+
+	/*
+		stack<string> interestpoints;
+		for(int i = 0; i < intpoints.size();i++){
+			interestpoints.push(intpoints.at(i)->getName());
+		}
+		while(!interestpoints.empty()){
+
+			set<pair<int,string>>::iterator it = points.begin();
+			for(it; it!= points.end();it++){
+				if((*it).second == interestpoints.top()){
+					points.erase(it);
+					break;
+				}
+			}
+			interestpoints.pop();
+		}
+		*/
+
+}
 
 
 void Container::displayGraph(){
@@ -231,7 +324,9 @@ void Container::loadClientes(){
 		clientes.push_back(cliente);
 	}
 
+
 	load.close();
+
 }
 
 void Container::saveClientes(){

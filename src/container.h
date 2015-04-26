@@ -12,7 +12,9 @@
 #include "ReadMap.h"
 #include "graphviewer.h"
 #include "cliente.h"
+#include <set>
 #include "Bus.h"
+
 
 class Container{
 private:
@@ -37,6 +39,7 @@ public:
 	boolean validNIF(int NIF);
 	vector<Bus> getBusList();
 	vector<Cliente> getClientes();
+	vector<InterestPoint*> makePath(vector<string> points);
 	Graph getGraph();
 };
 

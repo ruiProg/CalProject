@@ -45,6 +45,7 @@ public:
 	void setName(string name);
 	vector<Street> getConections();
 	bool isVisited();
+	//bool operator==
 };
 
 class Street {
