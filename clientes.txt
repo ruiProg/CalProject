@@ -1,10 +1,16 @@
 Cliente:
 Manuel
 20
--1
-Torre dos ClerigosTorre da ReboleiraPalacio das Sereias
+2002
+Torre dos Clerigos
+Torre da Reboleira
+Palacio das Sereias
 Cliente:
 Maria
 25
--1
-Torre dos ClerigosTorre da ReboleiraPalacio das SereiasTorre da CidadeCentro de Congressos do Porto
+2001
+Torre dos Clerigos
+Torre da Reboleira
+Palacio das Sereias
+Torre da Cidade
+Centro de Congressos do Porto

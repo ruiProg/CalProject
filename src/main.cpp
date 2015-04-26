@@ -33,31 +33,9 @@ int main(){
 	cout << "Linhas totais: "<< mapa.getAttractionLines().size()<<endl;
 	cout << "Tamanho: "<< mapa.getInterestPoints().size()<<endl;
 
-	Graph graph;
-	Container container;
-	container.createGraph(mapa);
-	container.displayGraph();
-
-	Cliente cliente;
-	cliente.setIdade(20);
-	cliente.setNome("Manuel");
-	cliente.addPontoInteresse("Torre dos Clerigos");
-	cliente.addPontoInteresse("Torre da Reboleira");
-	cliente.addPontoInteresse("Palacio das Sereias");
-
-	container.addCliente(cliente);
-
-	cliente.setIdade(25);
-	cliente.setNome("Maria");
-	cliente.addPontoInteresse("Torre da Cidade");
-	cliente.addPontoInteresse("Centro de Congressos do Porto");
-
-	container.addCliente(cliente);
-
-	container.saveClientes();
-	container.savePontosInteresses();
-
-	getchar();
+	Menu menu(mapa);
+	cin.clear();
+	while(menu.run());
 
 	return 0;
 }

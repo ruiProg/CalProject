@@ -29,8 +29,21 @@ public:
 	void addCliente(Cliente cliente);
 	void removeCliente(string name);
 	void addBus(Bus bus);
+	vector<Bus> getBusList();
+	vector<Cliente> getClientes();
+	Graph getGraph();
 };
 
-
+class Menu{
+private:
+	Container container;
+	int currentState;
+	static const int MainMenu = 1;
+	static const int InsertClient = 2;
+	static const int RemoveClient = 3;
+public:
+	Menu(ReadMap mapa);
+	bool run();
+};
 
 #endif /* CONTAINER_H_ */

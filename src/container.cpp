@@ -12,6 +12,21 @@
 #include <iomanip>
 #include "container.h"
 
+vector<Bus> Container::getBusList(){
+
+	return busList;
+}
+
+vector<Cliente> Container::getClientes(){
+
+	return clientes;
+}
+
+Graph Container::getGraph(){
+
+	return graph;
+}
+
 void Container::createGraph(ReadMap mapa){
 
 	for(int i = 0; i < mapa.getInterestPoints().size();i++){
@@ -155,9 +170,11 @@ void Container::loadClientes(){
 	}
 
 	getline(load,text);
-	Cliente cliente;
+
 
 	while(!load.eof()){
+
+		Cliente cliente;
 		getline(load,text);
 		cliente.setNome(text);
 
@@ -167,8 +184,10 @@ void Container::loadClientes(){
 		getline(load,text);
 		cliente.setNIF(atoi(text.c_str()));
 
-		while(text != "Cliente:"){
+		while(text != "Cliente:" && !load.eof()){
 			getline(load,text);
+			if(text == "Cliente:")
+				break;
 			cliente.addPontoInteresse(text);
 		}
 		clientes.push_back(cliente);
@@ -195,11 +214,12 @@ void Container::saveClientes(){
 		save << clientes.at(i).getIdade() << '\n';
 		save << clientes.at(i).getNIF() << '\n';
 
-		for(int j=0; j < clientes.at(i).getPontosInteresse().size(); j++)
+		for(int j=0; j < clientes.at(i).getPontosInteresse().size(); j++){
 			save << clientes.at(i).getPontosInteresse().at(j);
 
-		if(i != clientes.size() -1)
-			save << endl;
+			if(i!= clientes.size() -1 || j != clientes.at(i).getPontosInteresse().size() - 1)
+				save << endl;
+		}
 	}
 
 	save.close();
@@ -228,7 +248,6 @@ void Container::savePontosInteresses(){
 	save.close();
 }
 
-
 void Container::addCliente(Cliente cliente){
 
 	clientes.push_back(cliente);
@@ -244,4 +263,52 @@ void Container::removeCliente(string name){
 void Container::addBus(Bus bus){
 
 	busList.push_back(bus);
+}
+
+Menu::Menu(ReadMap map){
+
+	container.createGraph(map);
+	currentState = MainMenu;
+
+	container.loadClientes();
+	container.displayGraph();
+
+	container.saveClientes();
+	container.savePontosInteresses();
+
+	getchar();
+}
+
+bool Menu::run(){
+
+	switch(currentState){
+	case MainMenu:
+		cout << "[0]Display graph\n";
+		cout << "[1]Insert client\n";
+		cout << "[2]Remove client\n";
+		cout << "[3]Quit program\n";
+		cout << endl << endl;
+		break;
+	}
+
+	char c = getchar();
+	int choice = -1;
+	if(std::isdigit(c))
+		choice = c - '0';
+
+	switch(choice){
+	case 0:
+		container.displayGraph();
+		break;
+	case 1:
+		currentState = InsertClient;
+		break;
+	case 2:
+		currentState = RemoveClient;
+		break;
+	case 3:
+		return false;
+	}
+
+	return true;
 }
