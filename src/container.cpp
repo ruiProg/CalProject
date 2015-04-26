@@ -121,13 +121,13 @@ void Container::loadStreets(){
 void Container::loadMatrix(){
 
 	int size = this->getGraph().getListIp().size();
-	pair<double,vector<InterestPoint*>> rematrix[size][size];
+	pair<double,vector<InterestPoint*> > rematrix[size][size];
 	memcpy(rematrix, matrix, sizeof(matrix));
 	cout << "matriz: " << matrix[29][29].first << endl;
 	for(int i = 0 ; i < this->getGraph().getListIp().size();i++){
 		for(int j = 0; j <this->getGraph().getListIp().size();j++){
 			if(i!=j){
-				pair<double,vector<InterestPoint*>> matrixPoint;
+				pair<double,vector<InterestPoint*> > matrixPoint;
 				vector<InterestPoint*> pontos;
 				pontos = graph.getfloydWarshallPath(i,j);
 				matrixPoint.second = pontos;

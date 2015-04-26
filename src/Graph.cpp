@@ -266,39 +266,6 @@ pair<double, double> Graph::getLimitsLongitude(){
 	return limitsLongitude;
 }
 
-void Graph::floydWarshallShortestPath() {
-
-	Weight = new int * [listIP.size()];
-	Path = new int * [listIP.size()];
-
-	for(unsigned int i = 0; i < listIP.size(); i++){
-
-		Weight[i] = new int[listIP.size()];
-		Path[i] = new int[listIP.size()];
-
-		for(unsigned int j = 0; j < listIP.size(); j++){
-
-			Weight[i][j] = streetDistance(i,j);
-			Path[i][j] = -1;
-		}
-	}
-
-	for(unsigned int k = 0; k < listIP.size(); k++)
-		for(unsigned int i = 0; i < listIP.size(); i++)
-			for(unsigned int j = 0; j < listIP.size(); j++){
-
-				if(Weight[i][k] == INT_INFINITY || Weight[k][j] == INT_INFINITY)
-					continue;
-
-				int val = min(Weight[i][j], Weight[i][k]+Weight[k][j]);
-				if(val != Weight[i][j]){
-
-					Weight[i][j] = val;
-					Path[i][j] = k;
-				}
-			}
-}
-
 int Graph::streetDistance(int vOrigIndex, int vDestIndex){
 
 	if(listIP[vOrigIndex] == listIP[vDestIndex])
@@ -313,36 +280,36 @@ int Graph::streetDistance(int vOrigIndex, int vDestIndex){
 	return INT_INFINITY;
 }
 
-vector<string> Graph::getfloydWarshallPath(const int originIndex, const int destinationIndex){
+vector<InterestPoint*> Graph::getfloydWarshallPath(int originIndex, int destinationIndex){
 
-	vector<string> res;
+	vector<InterestPoint*> res;
 
 	if(Weight[originIndex][destinationIndex] == INT_INFINITY)
 		return res;
 
-	res.push_back(listIP[originIndex]->name);
+	res.push_back(listIP[originIndex]);
 
 	if(Path[originIndex][destinationIndex] != -1){
 
 		int intermedIndex = Path[originIndex][destinationIndex];
 		getfloydWarshallPathAux(originIndex, intermedIndex, res);
-		res.push_back(listIP[intermedIndex]->name);
+		res.push_back(listIP[intermedIndex]);
 		getfloydWarshallPathAux(intermedIndex,destinationIndex, res);
 	}
 
-	res.push_back(listIP[destinationIndex]->name);
+	res.push_back(listIP[destinationIndex]);
 
 
 	return res;
 }
 
-void Graph::getfloydWarshallPathAux(int index1, int index2, vector<string>& res){
+void Graph::getfloydWarshallPathAux(int index1, int index2, vector<InterestPoint*>& res){
 
 	if(Path[index1][index2] != -1){
 
 		getfloydWarshallPathAux(index1, Path[index1][index2], res);
 
-		res.push_back(listIP[Path[index1][index2]]->getName());
+		res.push_back(listIP[Path[index1][index2]]);
 
 		getfloydWarshallPathAux(Path[index1][index2],index2, res);
 	}

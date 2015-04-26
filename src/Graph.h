@@ -12,9 +12,12 @@
 #include <string>
 #include <utility>
 #include <cmath>
+#include <climits>
 
 #define EARTH_RADIUS 6371.0
 #define PI acos(-1)
+
+const int INT_INFINITY = INT_MAX;
 
 using namespace std;
 
@@ -83,8 +86,8 @@ public:
 
 	void floydWarshallShortestPath();
 	int streetDistance(int vOrigIndex, int vDestIndex);
-	vector<string> getfloydWarshallPath(const int originIndex, const int destinationIndex);
-	void getfloydWarshallPathAux(int index1, int index2, vector<string>& res);
+	vector<InterestPoint*> getfloydWarshallPath(int originIndex,int destinationIndex);
+	void getfloydWarshallPathAux(int index1, int index2, vector<InterestPoint*>& res);
 };
 
 #endif /* GRAPH_H_ */
