@@ -85,6 +85,6 @@ public:
 	int streetDistance(int vOrigIndex, int vDestIndex);
 	vector<string> getfloydWarshallPath(const string &origin, const string &dest);
 	void getfloydWarshallPathAux(int index1, int index2, vector<string>& res);
-};
+};//
 
 #endif /* GRAPH_H_ */
