@@ -268,12 +268,12 @@ pair<double, double> Graph::getLimitsLongitude(){
 
 void Graph::floydWarshallShortestPath() {
 
-	Weight = new double * [listIP.size()];
-	Path = new int * [listIP.size()];
+	Weight = new int* [listIP.size()];
+	Path = new int* [listIP.size()];
 
 	for(unsigned int i = 0; i < listIP.size(); i++){
 
-		Weight[i] = new double[listIP.size()];
+		Weight[i] = new int[listIP.size()];
 		Path[i] = new int[listIP.size()];
 
 		for(unsigned int j = 0; j < listIP.size(); j++){
@@ -299,42 +299,44 @@ void Graph::floydWarshallShortestPath() {
 			}
 }
 
-double Graph::streetDistance(int vOrigIndex, int vDestIndex){
+int Graph::streetDistance(int vOrigIndex, int vDestIndex){
 
-	if(listIP[vOrigIndex] == listIP[vDestIndex])
+	if(listIP[vOrigIndex]->name == listIP[vDestIndex]->name)
 		return 0;
 
 	for(unsigned int i = 0; i < listIP[vOrigIndex]->getConections().size(); i++){
 
-		if(listIP[vOrigIndex]->getConections()[i].dest == listIP[vDestIndex])
-			return listIP[vOrigIndex]->getConections()[i].distance;
+		if(listIP[vOrigIndex]->getConections()[i].dest->name == listIP[vDestIndex]->name)
+			return (int)(listIP[vOrigIndex]->getConections()[i].distance * 1000000000);
 	}
 
 	return INT_INFINITY;
 }
 
 vector<InterestPoint*> Graph::getfloydWarshallPath(int originIndex, int destinationIndex){
+
+	//printSquareArray(Weight,listIP.size());
+	//printSquareArray(Path,listIP.size());
+
 	vector<InterestPoint*> res;
-	cout << "wight1"<<endl;
 	if(Weight[originIndex][destinationIndex] == INT_INFINITY)
 		return res;
-	cout << "wight2"<<endl;
+	cout << "weight2"<<endl;
 	res.push_back(listIP[originIndex]);
 
 	if(Path[originIndex][destinationIndex] != -1){
-		cout << "wight3"<<endl;
+		cout << "weight3"<<endl;
 		int intermedIndex = Path[originIndex][destinationIndex];
-		cout << "wight4"<<endl;
+		cout << "weight4"<<endl;
 		getfloydWarshallPathAux(originIndex, intermedIndex, res);
-		cout << "wight5"<<endl;
+		cout << "weight5"<<endl;
 		res.push_back(listIP[intermedIndex]);
-		cout << "wight6"<<endl;
+		cout << "weight6"<<endl;
 		getfloydWarshallPathAux(intermedIndex,destinationIndex, res);
-		cout << "wight7"<<endl;
+		cout << "weight7"<<endl;
 	}
-	cout << "wight8"<<endl;
+	cout << "weight8"<<endl;
 	res.push_back(listIP[destinationIndex]);
-
 
 	return res;
 }

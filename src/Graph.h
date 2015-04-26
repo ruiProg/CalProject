@@ -8,6 +8,7 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <utility>
@@ -63,7 +64,7 @@ class Graph {
 	pair<double, double> limitsLatitude;
 	pair<double, double> limitsLongitude;
 
-	double ** Weight;
+	int ** Weight;
 	int ** Path;
 
 	void initialize();
@@ -85,9 +86,36 @@ public:
 	double calcDistance(InterestPoint* src, InterestPoint* dest);
 
 	void floydWarshallShortestPath();
-	double streetDistance(int vOrigIndex, int vDestIndex);
+	int streetDistance(int vOrigIndex, int vDestIndex);
 	vector<InterestPoint*> getfloydWarshallPath(int originIndex,int destinationIndex);
 	void getfloydWarshallPathAux(int index1, int index2, vector<InterestPoint*>& res);
+
+	template <class T>
+	void printSquareArray(T** arr, unsigned int size){
+
+		for(unsigned int k = 0; k < size; k++){
+
+			if(k == 0){
+				cout <<  "   ";
+				for(unsigned int i = 0; i < size; i++)
+					cout <<  " " << i+1 << " ";
+				cout << endl;
+			}
+
+			for(unsigned int i = 0; i < size; i++){
+
+				if(i == 0)
+					cout <<  " " << k+1 << " ";
+
+				if(arr[k][i] == INT_INFINITY)
+					cout << " - ";
+				else
+					cout <<  " " << arr[k][i] << " ";
+			}
+
+			cout << endl;
+		}
+	}
 };
 
 #endif /* GRAPH_H_ */

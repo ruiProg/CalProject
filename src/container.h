@@ -19,7 +19,9 @@ private:
 	vector<Cliente> clientes;
 	vector<Bus> busList;
 	Graph graph;
-	pair<double,vector<InterestPoint*> > matrix[31][31];
+	GraphViewer* gv;
+	static const int ContainerSize = 31;
+	pair<double,vector<InterestPoint*> > matrix[ContainerSize][ContainerSize];
 public:
 	void createGraph(ReadMap mapa);
 	void loadClientes();

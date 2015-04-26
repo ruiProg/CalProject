@@ -131,14 +131,14 @@ void Container::loadMatrix(){
 
 				vector<InterestPoint*> pontos;
 				cout << "entrou"<<endl;
-				pontos = graph.getfloydWarshallPath(22,4);
+				pontos = graph.getfloydWarshallPath(2,9);
 				cout << "saiu"<<endl;
 				matrixPoint.second = pontos;
 				double distance=0;
 
 				for(int dist = 0; dist < pontos.size();dist++){
 					cout <<"Pontos Name: "<<pontos.at(dist)->getName()<<endl;
-					if(dist+1 == pontos.size() )
+					if(dist+1 == pontos.size())
 						break;
 					matrixPoint.first+= this->getGraph().calcDistance(pontos.at(dist),pontos.at(dist+1));
 				}
@@ -159,7 +159,7 @@ void Container::displayGraph(){
 	int windowSize = 1024;
 	stringstream ss;
 
-	GraphViewer* gv = new GraphViewer(1920, 1080, false);
+	gv = new GraphViewer(1920, 1080, false);
 	gv->createWindow(windowSize, windowSize);
 
 	gv->defineVertexColor(WHITE);
