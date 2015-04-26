@@ -307,7 +307,7 @@ int Graph::streetDistance(int vOrigIndex, int vDestIndex){
 	for(unsigned int i = 0; i < listIP[vOrigIndex]->getConections().size(); i++){
 
 		if(listIP[vOrigIndex]->getConections()[i].dest->name == listIP[vDestIndex]->name)
-			return (int)(listIP[vOrigIndex]->getConections()[i].distance * 1000000000);
+			return (int)(listIP[vOrigIndex]->getConections()[i].distance * 1000000);
 	}
 
 	return INT_INFINITY;
@@ -321,21 +321,14 @@ vector<InterestPoint*> Graph::getfloydWarshallPath(int originIndex, int destinat
 	vector<InterestPoint*> res;
 	if(Weight[originIndex][destinationIndex] == INT_INFINITY)
 		return res;
-	cout << "weight2"<<endl;
 	res.push_back(listIP[originIndex]);
 
 	if(Path[originIndex][destinationIndex] != -1){
-		cout << "weight3"<<endl;
 		int intermedIndex = Path[originIndex][destinationIndex];
-		cout << "weight4"<<endl;
 		getfloydWarshallPathAux(originIndex, intermedIndex, res);
-		cout << "weight5"<<endl;
 		res.push_back(listIP[intermedIndex]);
-		cout << "weight6"<<endl;
 		getfloydWarshallPathAux(intermedIndex,destinationIndex, res);
-		cout << "weight7"<<endl;
 	}
-	cout << "weight8"<<endl;
 	res.push_back(listIP[destinationIndex]);
 
 	return res;
@@ -344,12 +337,10 @@ vector<InterestPoint*> Graph::getfloydWarshallPath(int originIndex, int destinat
 void Graph::getfloydWarshallPathAux(int index1, int index2, vector<InterestPoint*>& res){
 
 	if(Path[index1][index2] != -1){
-		cout << "cenas1"<<endl;
 		getfloydWarshallPathAux(index1, Path[index1][index2], res);
-		cout << "cenas2"<<endl;
+
 		res.push_back(listIP[Path[index1][index2]]);
-		cout <<"cenas4"<<endl;
+
 		getfloydWarshallPathAux(Path[index1][index2],index2, res);
-		cout<< "cenas5"<<endl;
 	}
 }

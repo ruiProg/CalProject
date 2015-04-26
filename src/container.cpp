@@ -119,40 +119,37 @@ void Container::loadStreets(){
 
 
 void Container::loadMatrix(){
-	cout << "FUNCAO" << endl;
+
 	pair<double,vector<InterestPoint*> > matrixPoint;
 	matrixPoint.first = 0;
 
 	graph.floydWarshallShortestPath();
 	for(int i = 0 ; i < this->getGraph().getListIp().size();i++){
 		for(int j = 0; j <this->getGraph().getListIp().size();j++){
-			cout << "i= "<< i << " j= "<< j<<endl;
+
 			if(i!=j){
 
 				vector<InterestPoint*> pontos;
-				cout << "entrou"<<endl;
-				pontos = graph.getfloydWarshallPath(2,9);
-				cout << "saiu"<<endl;
+				pontos = graph.getfloydWarshallPath(j,i);
 				matrixPoint.second = pontos;
 				double distance=0;
 
 				for(int dist = 0; dist < pontos.size();dist++){
-					cout <<"Pontos Name: "<<pontos.at(dist)->getName()<<endl;
 					if(dist+1 == pontos.size())
 						break;
 					matrixPoint.first+= this->getGraph().calcDistance(pontos.at(dist),pontos.at(dist+1));
+
 				}
 				matrix[j][i].first=matrixPoint.first;
 				matrix[j][i].second=matrixPoint.second;
-
-				cout << "matriz[}][] " << endl;
-				return;
 			}
 		}
 	}
-	cout << "matriz: " << matrix[29][29].first << endl;
 
+	return;
 }
+
+
 
 void Container::displayGraph(){
 
