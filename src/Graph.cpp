@@ -268,12 +268,12 @@ pair<double, double> Graph::getLimitsLongitude(){
 
 void Graph::floydWarshallShortestPath() {
 
-	Weight = new int * [listIP.size()];
+	Weight = new double * [listIP.size()];
 	Path = new int * [listIP.size()];
 
 	for(unsigned int i = 0; i < listIP.size(); i++){
 
-		Weight[i] = new int[listIP.size()];
+		Weight[i] = new double[listIP.size()];
 		Path[i] = new int[listIP.size()];
 
 		for(unsigned int j = 0; j < listIP.size(); j++){
@@ -314,12 +314,9 @@ int Graph::streetDistance(int vOrigIndex, int vDestIndex){
 }
 
 vector<InterestPoint*> Graph::getfloydWarshallPath(int originIndex, int destinationIndex){
-
 	vector<InterestPoint*> res;
-
 	if(Weight[originIndex][destinationIndex] == INT_INFINITY)
 		return res;
-
 	res.push_back(listIP[originIndex]);
 
 	if(Path[originIndex][destinationIndex] != -1){

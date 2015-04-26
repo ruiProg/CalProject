@@ -19,7 +19,7 @@ private:
 	vector<Cliente> clientes;
 	vector<Bus> busList;
 	Graph graph;
-	pair<double,vector<InterestPoint*> > matrix[1][1];
+	pair<double,vector<InterestPoint*> > matrix[31][31];
 public:
 	void createGraph(ReadMap mapa);
 	void loadClientes();

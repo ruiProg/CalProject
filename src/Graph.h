@@ -63,7 +63,7 @@ class Graph {
 	pair<double, double> limitsLatitude;
 	pair<double, double> limitsLongitude;
 
-	int ** Weight;
+	double ** Weight;
 	int ** Path;
 
 	void initialize();

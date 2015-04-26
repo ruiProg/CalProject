@@ -119,25 +119,34 @@ void Container::loadStreets(){
 
 
 void Container::loadMatrix(){
+	cout << "FUNCAO" << endl;
+	pair<double,vector<InterestPoint*> > matrixPoint;
+	matrixPoint.first = 0;
 
-	int size = this->getGraph().getListIp().size();
-	pair<double,vector<InterestPoint*> > rematrix[size][size];
-	memcpy(rematrix, matrix, sizeof(matrix));
-	cout << "matriz: " << matrix[29][29].first << endl;
+	graph.floydWarshallShortestPath();
 	for(int i = 0 ; i < this->getGraph().getListIp().size();i++){
 		for(int j = 0; j <this->getGraph().getListIp().size();j++){
+			cout << "i= "<< i << " j= "<< j<<endl;
 			if(i!=j){
-				pair<double,vector<InterestPoint*> > matrixPoint;
+
 				vector<InterestPoint*> pontos;
-				pontos = graph.getfloydWarshallPath(i,j);
+				cout << "entrou"<<endl;
+				pontos = graph.getfloydWarshallPath(22,4);
+				cout << "saiu"<<endl;
 				matrixPoint.second = pontos;
+				double distance=0;
 
 				for(int dist = 0; dist < pontos.size();dist++){
-					if(dist+1 >pontos.size() )
+					cout <<"Pontos Name: "<<pontos.at(dist)->getName()<<endl;
+					if(dist+1 == pontos.size() )
 						break;
-					matrixPoint.first+= graph.calcDistance(pontos.at(dist),pontos.at(dist+1));
+					matrixPoint.first+= this->getGraph().calcDistance(pontos.at(dist),pontos.at(dist+1));
 				}
-				matrix[j][i]= matrixPoint;
+				matrix[j][i].first=matrixPoint.first;
+				matrix[j][i].second=matrixPoint.second;
+
+				cout << "matriz[}][] " << endl;
+				return;
 			}
 		}
 	}
