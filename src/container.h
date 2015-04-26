@@ -27,8 +27,9 @@ public:
 	void savePontosInteresses();
 	void displayGraph();
 	void addCliente(Cliente cliente);
-	void removeCliente(string name);
+	void removeCliente(int NIF);
 	void addBus(Bus bus);
+	boolean validNIF(int NIF);
 	vector<Bus> getBusList();
 	vector<Cliente> getClientes();
 	Graph getGraph();

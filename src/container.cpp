@@ -254,16 +254,28 @@ void Container::addCliente(Cliente cliente){
 	clientes.push_back(cliente);
 }
 
-void Container::removeCliente(string name){
+void Container::removeCliente(int NIF){
 
 	for(int i=0; i < clientes.size(); i++)
-		if(name == clientes.at(i).getNome())
+		if(NIF == clientes.at(i).getNIF())
 			clientes.erase(clientes.begin() + i);
 }
 
 void Container::addBus(Bus bus){
 
 	busList.push_back(bus);
+}
+
+boolean Container::validNIF(int NIF){
+
+	if(NIF == -1)
+		return false;
+
+	for(int i=0; i < clientes.size(); i++)
+		if(clientes.at(i).getNIF() == NIF)
+			return false;
+
+	return true;
 }
 
 Menu::Menu(ReadMap map){
@@ -300,9 +312,18 @@ bool Menu::run(){
 		cin >> text;
 		client.setIdade(atoi(text.c_str())); cout << endl;
 
-		cout << "Escreve o NIF do cliente\n";
-		cin >> text;
-		client.setNIF(atoi(text.c_str())); cout << endl;
+		int NIF = -1;
+		while(!container.validNIF(NIF)){
+			cout << "Escreve o NIF do cliente\n";
+			cin >> text;
+			int NIF = atoi(text.c_str());
+			if(container.validNIF(NIF)) cout << "true\n";
+			if(container.validNIF(NIF)){
+				client.setNIF(NIF);
+				break;
+			}
+			cout << endl;
+		}
 
 		cout << "Escreve a lista de pontos de interesse, usando o ID\n";
 		cout << "Ver tabela acima para saber o ID\n";
@@ -332,7 +353,25 @@ bool Menu::run(){
 		break;
 	}
 	case RemoveClient:
+	{
+		for(int i=0; i < container.getClientes().size(); i++)
+			cout << "ID: " << i << ", NIF: " << container.getClientes().at(i).getNIF() << ", Idade: " << container.getClientes().at(i).getIdade() << ", Nome: " << container.getClientes().at(i).getNome() << endl;
+		cout << endl << endl;
+
+		cout << "Elimine o cliente utilizando o ID do cliente\n";
+		cout << "Ver tabela acima para saber o ID\n";
+
+		string text;
+		cin >> text;
+		int nb = atoi(text.c_str());
+		if(nb >= 0 && nb < container.getClientes().size())
+			container.removeCliente(container.getClientes().at(nb).getNIF());
+		else
+			cout << "Invalid selection\n";
+		cout << endl << endl;
+		currentState = MainMenu;
 		break;
+	}
 	case Quit:
 		cout << "Leaving the program\n";
 		container.saveClientes();
@@ -361,3 +400,4 @@ bool Menu::run(){
 
 	return true;
 }
+
