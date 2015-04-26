@@ -118,6 +118,24 @@ void Container::loadStreets(){
 
 }
 
+
+void Container::loadMatrix(){
+
+	for(int i = 0 ; i < this->getGraph().getListIp().size();i++){
+		for(int j = 0; j <this->getGraph().getListIp().size();j++){
+			if(i!=j){
+				pair<double,InterestPoint*> matrixPoint;
+				int src =
+
+				matrix[j][i]= matrixPoint;
+
+			}
+
+		}
+	}
+
+
+}
 void Container::displayGraph(){
 
 	int windowSize = 1024;
