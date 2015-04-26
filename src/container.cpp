@@ -339,6 +339,7 @@ bool Menu::run(){
 		break;
 	case MakePath:
 		container.loadMatrix();
+		currentState = MainMenu;
 		break;
 	case InsertClient:
 	{
