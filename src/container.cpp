@@ -111,6 +111,10 @@ void Container::loadStreets(){
 	graph.addStreet(26,24);
 	graph.addStreet(24,28);
 	graph.addStreet(24,23);
+	graph.addStreet(13,1);
+	graph.addStreet(1,2);
+	graph.addStreet(2,0);
+
 }
 
 void Container::displayGraph(){
