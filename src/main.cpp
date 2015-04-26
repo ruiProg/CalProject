@@ -31,11 +31,12 @@ int main(){
 
 	cout <<"Duração da execucão: " << time_spent<<endl;
 	cout << "Linhas totais: "<< mapa.getAttractionLines().size()<<endl;
-	cout << "Tamanho: "<< mapa.getInterestPoints().size()<<endl;
+	cout << "Tamanho: "<< mapa.getInterestPoints().size()<<endl << endl;
 
 	Menu menu(mapa);
 	cin.clear();
 	while(menu.run());
+	getchar();
 
 	return 0;
 }

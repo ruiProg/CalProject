@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <set>
 #include "container.h"
 
 vector<Bus> Container::getBusList(){
@@ -257,10 +258,10 @@ void Container::addCliente(Cliente cliente){
 	clientes.push_back(cliente);
 }
 
-void Container::removeCliente(string name){
+void Container::removeCliente(int NIF){
 
 	for(int i=0; i < clientes.size(); i++)
-		if(name == clientes.at(i).getNome())
+		if(NIF == clientes.at(i).getNIF())
 			clientes.erase(clientes.begin() + i);
 }
 
@@ -269,18 +270,24 @@ void Container::addBus(Bus bus){
 	busList.push_back(bus);
 }
 
+boolean Container::validNIF(int NIF){
+
+	if(NIF == -1)
+		return false;
+
+	for(int i=0; i < clientes.size(); i++)
+		if(clientes.at(i).getNIF() == NIF)
+			return false;
+
+	return true;
+}
+
 Menu::Menu(ReadMap map){
 
 	container.createGraph(map);
 	currentState = MainMenu;
 
 	container.loadClientes();
-	container.displayGraph();
-
-	container.saveClientes();
-	container.savePontosInteresses();
-
-	getchar();
 }
 
 bool Menu::run(){
@@ -293,6 +300,87 @@ bool Menu::run(){
 		cout << "[3]Quit program\n";
 		cout << endl << endl;
 		break;
+	case InsertClient:
+	{
+		for(int i=0; i < container.getGraph().getListIp().size(); i++)
+			cout << "ID: " << i << ", Nome: " << container.getGraph().getListIp().at(i)->getName() << endl;
+		cout << endl << endl;
+
+		Cliente client;
+		string text;
+		cout << "Escreve o nome do cliente\n";
+		cin >> text;
+		client.setNome(text); cout << endl;
+
+		cout << "Escreve a idade do cliente\n";
+		cin >> text;
+		client.setIdade(atoi(text.c_str())); cout << endl;
+
+		int NIF = -1;
+		while(!container.validNIF(NIF)){
+			cout << "Escreve o NIF do cliente\n";
+			cin >> text;
+			int NIF = atoi(text.c_str());
+			if(container.validNIF(NIF)) cout << "true\n";
+			if(container.validNIF(NIF)){
+				client.setNIF(NIF);
+				break;
+			}
+			cout << endl;
+		}
+
+		cout << "Escreve a lista de pontos de interesse, usando o ID\n";
+		cout << "Ver tabela acima para saber o ID\n";
+		cout << "Escreve end para terminar processamento\n";
+
+		int cnt = 0;
+		set<int> tmpSet;
+		while(cnt < 5 || text != "end"){
+			cout << "[" << cnt <<  "]: ";
+			cin >> text;
+			if(text == "end")
+				break;
+			int nb = atoi(text.c_str());
+			int size = tmpSet.size();
+			tmpSet.insert(nb);
+			if(tmpSet.size() != size && nb >= 0 && nb < container.getGraph().getListIp().size()){
+				client.addPontoInteresse(container.getGraph().getListIp().at(nb)->getName());
+				cnt++;
+			}
+			else
+				cout << "Invalid selection\n";
+		}
+
+		cout << endl << endl;
+		container.addCliente(client);
+		currentState = MainMenu;
+		break;
+	}
+	case RemoveClient:
+	{
+		for(int i=0; i < container.getClientes().size(); i++)
+			cout << "ID: " << i << ", NIF: " << container.getClientes().at(i).getNIF() << ", Idade: " << container.getClientes().at(i).getIdade() << ", Nome: " << container.getClientes().at(i).getNome() << endl;
+		cout << endl << endl;
+
+		cout << "Elimine o cliente utilizando o ID do cliente\n";
+		cout << "Ver tabela acima para saber o ID\n";
+
+		string text;
+		cin >> text;
+		int nb = atoi(text.c_str());
+		if(nb >= 0 && nb < container.getClientes().size())
+			container.removeCliente(container.getClientes().at(nb).getNIF());
+		else
+			cout << "Invalid selection\n";
+		cout << endl << endl;
+		currentState = MainMenu;
+		break;
+	}
+	case Quit:
+		cout << "Leaving the program\n";
+		container.saveClientes();
+		container.savePontosInteresses();
+		return false;
 	}
 
 	char c = getchar();
@@ -311,8 +399,9 @@ bool Menu::run(){
 		currentState = RemoveClient;
 		break;
 	case 3:
-		return false;
+		currentState = Quit;
 	}
 
 	return true;
 }
+

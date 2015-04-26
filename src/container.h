@@ -27,8 +27,9 @@ public:
 	void savePontosInteresses();
 	void displayGraph();
 	void addCliente(Cliente cliente);
-	void removeCliente(string name);
+	void removeCliente(int NIF);
 	void addBus(Bus bus);
+	boolean validNIF(int NIF);
 	vector<Bus> getBusList();
 	vector<Cliente> getClientes();
 	Graph getGraph();
@@ -41,6 +42,7 @@ private:
 	static const int MainMenu = 1;
 	static const int InsertClient = 2;
 	static const int RemoveClient = 3;
+	static const int Quit = 4;
 public:
 	Menu(ReadMap mapa);
 	bool run();
