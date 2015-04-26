@@ -130,7 +130,7 @@ void Container::loadMatrix(){
 				pair<double,InterestPoint*> matrixPoint;
 				//int src =this->getGraph().getListIp().at(i);
 
-				matrix[j][i]= matrixPoint;
+				//matrix[j][i]= matrixPoint;
 
 			}
 

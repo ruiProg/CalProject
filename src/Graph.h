@@ -60,6 +60,9 @@ class Graph {
 	pair<double, double> limitsLatitude;
 	pair<double, double> limitsLongitude;
 
+	int ** Weight;
+	int ** Path;
+
 	void initialize();
 	void reorderLimits();
 	void setLimits(const pair<double, double>& coords);
@@ -77,6 +80,11 @@ public:
 	pair<double, double> getLimitsLongitude();
 	int find(InterestPoint* ip);
 	double calcDistance(InterestPoint* src, InterestPoint* dest);
+
+	void floydWarshallShortestPath();
+	int streetDistance(int vOrigIndex, int vDestIndex);
+	vector<string> getfloydWarshallPath(const string &origin, const string &dest);
+	void getfloydWarshallPathAux(int index1, int index2, vector<string>& res);
 };
 
 #endif /* GRAPH_H_ */
