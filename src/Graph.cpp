@@ -313,21 +313,7 @@ int Graph::streetDistance(int vOrigIndex, int vDestIndex){
 	return INT_INFINITY;
 }
 
-vector<string> Graph::getfloydWarshallPath(const string &origin, const string &dest){
-
-	int originIndex = -1, destinationIndex = -1;
-
-	for(unsigned int i = 0; i < listIP.size(); i++){
-
-		if(listIP[i]->name == origin)
-			originIndex = i;
-		if(listIP[i]->name == dest)
-			destinationIndex = i;
-
-		if(originIndex != -1 && destinationIndex != -1)
-			break;
-	}
-	//
+vector<string> Graph::getfloydWarshallPath(const int originIndex, const int destinationIndex){
 
 	vector<string> res;
 

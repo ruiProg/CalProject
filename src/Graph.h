@@ -83,8 +83,8 @@ public:
 
 	void floydWarshallShortestPath();
 	int streetDistance(int vOrigIndex, int vDestIndex);
-	vector<string> getfloydWarshallPath(const string &origin, const string &dest);
+	vector<string> getfloydWarshallPath(const int originIndex, const int destinationIndex);
 	void getfloydWarshallPathAux(int index1, int index2, vector<string>& res);
-};//
+};
 
 #endif /* GRAPH_H_ */
