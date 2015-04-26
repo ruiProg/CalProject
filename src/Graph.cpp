@@ -74,6 +74,11 @@ InterestPoint* Street::getDest(){
 	return dest;
 }
 
+double Street::getDistance(){
+
+	return distance;
+}
+
 void Graph::initialize() {
 
 	limitsLatitude.first = 180;
@@ -148,7 +153,7 @@ bool Graph::addStreet(int indexSrc, int indexDest){
 	InterestPoint* src = listIP.at(indexSrc);
 	InterestPoint* dest = listIP.at(indexDest);
 
-	return addStreet(src->getName(), dest->getName(), distance(src,dest));
+	return addStreet(src->getName(), dest->getName(), calcDistance(src,dest));
 }
 
 bool Graph::removeInterestPoint(const string &ip) {
@@ -228,6 +233,7 @@ double Graph::calcDistance(InterestPoint* src, InterestPoint* dest){
 
 	double a = pow(sin(deltaLat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(deltaLon / 2), 2);
 	double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
 	return c * EARTH_RADIUS;
 }
 
