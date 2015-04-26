@@ -39,7 +39,7 @@ public:
 	boolean validNIF(int NIF);
 	vector<Bus> getBusList();
 	vector<Cliente> getClientes();
-	vector<InterestPoint*> makePath(vector<string> points);
+	vector<string> makePath(vector<string> points);
 	Graph getGraph();
 };
 

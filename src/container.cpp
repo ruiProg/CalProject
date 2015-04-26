@@ -149,9 +149,11 @@ void Container::loadMatrix(){
 	return;
 }
 
-vector<InterestPoint*> Container::makePath(vector<string> points){ // estes pontos já não se encontram repetidos
+vector<string> Container::makePath(vector<string> points){ // estes pontos já não se encontram repetidos
 
 	set<pair<int,string>> interestpoints;
+	vector<string> res;
+	int indice;
 
 	/////////////inicio do cancro LOAD DOS IDS E DOS NOMES
 	for(int i = 0 ; i < points.size(); i++){
@@ -167,79 +169,73 @@ vector<InterestPoint*> Container::makePath(vector<string> points){ // estes pont
 	}
 	/////////////fim do cancro
 
-	vector<string> res;
+
 
 	//load do primeiro ponto
 
 	set<pair<int,string>>::iterator it = interestpoints.begin();
 	set<pair<int,string>>::iterator itremove;
 
-	pair<double,vector<InterestPoint*> > mais_curto = matrix[0][(*it).first];
+	pair<double,vector<InterestPoint*>> mais_curto = matrix[0][(*it).first];
+	pair<double,vector<InterestPoint*>> mais_curto2;
 	it++;
 
 	for(it; it!= interestpoints.end();it++){
-		if(mais_curto.first > (*it).first){
-			mais_curto = (*it);
+
+		if(mais_curto.first > matrix[0][(*it).first].first){
+			mais_curto.first = matrix[0][(*it).first].first;
+			mais_curto.second = matrix[0][(*it).first].second;
+			indice = (*it).first;
 			itremove = it;
 		}
 	}
 
-	interestpoints.erase(itremove);
-	stack<string> interestpoints2;
-	set<pair<int,string>>::iterator it = interestpoints.begin();
-	for(int i = 0; i < interestpoints.size();i++){
-		string nome = (*it).second;
-		interestpoints2.push(nome);
-	}
-	while(!interestpoints2.empty()){
-
-		set<pair<int,string>>::iterator it = points.begin();
-		for(it; it!= points.end();it++){
-			if((*it).second == interestpoints2.top()){
-				interestpoints.erase(it);
-				break;
-			}
+	for(int i = 0; i < mais_curto.second.size();i++){
+			res.push_back(mais_curto.second.at(i)->getName());
 		}
-		interestpoints2.pop();
-	}
-
+	interestpoints.erase(itremove);
 
 	//fim do load do primeiro ponto
 
 	it = interestpoints.begin();
 	while(interestpoints.size() != 1){
 
+		mais_curto2.first = matrix[(*it).first][(*it).first].first;
+		mais_curto2.second = matrix[(*it).first][(*it).first].second;
+		it++;
+		for(it; it!= interestpoints.end();it++){
 
-
-		if(it == interestpoints.end())
-		{
-			//retirar do interest points todos os que já foram usados
-			it = interestpoints.begin();
+			if(mais_curto2.first > matrix[indice][(*it).first].first){
+				mais_curto2.first = matrix[indice][(*it).first].first;
+				mais_curto2.second = matrix[indice][(*it).first].second;
+				indice = (*it).first;
+				itremove = it;
+			}
 		}
+
+		mais_curto= mais_curto2;
+
+		for(int x = 0; x < mais_curto.second.size();x++){
+			if(x!=0)
+				res.push_back(mais_curto.second.at(x)->getName());
+		}
+
+		interestpoints.erase(itremove);
+		it++;
+	}
+
+	it = interestpoints.begin();
+	mais_curto2 = matrix[(*it).first][0];
+	for(int x = 0; x < mais_curto2.second.size();x++){
+		if(x!=0)
+			res.push_back(mais_curto2.second.at(x)->getName());
 	}
 
 
 	//load do ultimo
 
+	return res;
 
-
-	/*
-		stack<string> interestpoints;
-		for(int i = 0; i < intpoints.size();i++){
-			interestpoints.push(intpoints.at(i)->getName());
-		}
-		while(!interestpoints.empty()){
-
-			set<pair<int,string>>::iterator it = points.begin();
-			for(it; it!= points.end();it++){
-				if((*it).second == interestpoints.top()){
-					points.erase(it);
-					break;
-				}
-			}
-			interestpoints.pop();
-		}
-		*/
 
 }
 
