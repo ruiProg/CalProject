@@ -299,7 +299,7 @@ void Graph::floydWarshallShortestPath() {
 			}
 }
 
-int Graph::streetDistance(int vOrigIndex, int vDestIndex){
+double Graph::streetDistance(int vOrigIndex, int vDestIndex){
 
 	if(listIP[vOrigIndex] == listIP[vDestIndex])
 		return 0;

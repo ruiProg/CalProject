@@ -85,7 +85,7 @@ public:
 	double calcDistance(InterestPoint* src, InterestPoint* dest);
 
 	void floydWarshallShortestPath();
-	int streetDistance(int vOrigIndex, int vDestIndex);
+	double streetDistance(int vOrigIndex, int vDestIndex);
 	vector<InterestPoint*> getfloydWarshallPath(int originIndex,int destinationIndex);
 	void getfloydWarshallPathAux(int index1, int index2, vector<InterestPoint*>& res);
 };
