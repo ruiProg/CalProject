@@ -468,9 +468,9 @@ bool Menu::run(){
 
 		int cnt = 0;
 		set<int> tmpSet;
-		while(cnt < 5 || text != "end"){
+		while(cnt < 5 && text != "end"){
 			cout << "[" << cnt <<  "]: ";
-			cin >> text;
+			getline(cin,text);
 			if(text == "end")
 				break;
 			int nb = atoi(text.c_str());
