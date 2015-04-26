@@ -41,6 +41,7 @@ private:
 	static const int MainMenu = 1;
 	static const int InsertClient = 2;
 	static const int RemoveClient = 3;
+	static const int Quit = 4;
 public:
 	Menu(ReadMap mapa);
 	bool run();

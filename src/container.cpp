@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <set>
 #include "container.h"
 
 vector<Bus> Container::getBusList(){
@@ -271,12 +272,6 @@ Menu::Menu(ReadMap map){
 	currentState = MainMenu;
 
 	container.loadClientes();
-	container.displayGraph();
-
-	container.saveClientes();
-	container.savePontosInteresses();
-
-	getchar();
 }
 
 bool Menu::run(){
@@ -289,6 +284,60 @@ bool Menu::run(){
 		cout << "[3]Quit program\n";
 		cout << endl << endl;
 		break;
+	case InsertClient:
+	{
+		for(int i=0; i < container.getGraph().getListIp().size(); i++)
+			cout << "ID: " << i << ", Nome: " << container.getGraph().getListIp().at(i)->getName() << endl;
+		cout << endl << endl;
+
+		Cliente client;
+		string text;
+		cout << "Escreve o nome do cliente\n";
+		cin >> text;
+		client.setNome(text); cout << endl;
+
+		cout << "Escreve a idade do cliente\n";
+		cin >> text;
+		client.setIdade(atoi(text.c_str())); cout << endl;
+
+		cout << "Escreve o NIF do cliente\n";
+		cin >> text;
+		client.setNIF(atoi(text.c_str())); cout << endl;
+
+		cout << "Escreve a lista de pontos de interesse, usando o ID\n";
+		cout << "Ver tabela acima para saber o ID\n";
+		cout << "Escreve end para terminar processamento\n";
+
+		int cnt = 0;
+		set<int> tmpSet;
+		while(cnt < 5 || text != "end"){
+			cout << "[" << cnt <<  "]: ";
+			cin >> text;
+			if(text == "end")
+				break;
+			int nb = atoi(text.c_str());
+			int size = tmpSet.size();
+			tmpSet.insert(nb);
+			if(tmpSet.size() != size && nb >= 0 && nb < container.getGraph().getListIp().size()){
+				client.addPontoInteresse(container.getGraph().getListIp().at(nb)->getName());
+				cnt++;
+			}
+			else
+				cout << "Invalid selection\n";
+		}
+
+		cout << endl << endl;
+		container.addCliente(client);
+		currentState = MainMenu;
+		break;
+	}
+	case RemoveClient:
+		break;
+	case Quit:
+		cout << "Leaving the program\n";
+		container.saveClientes();
+		container.savePontosInteresses();
+		return false;
 	}
 
 	char c = getchar();
@@ -307,7 +356,7 @@ bool Menu::run(){
 		currentState = RemoveClient;
 		break;
 	case 3:
-		return false;
+		currentState = Quit;
 	}
 
 	return true;
