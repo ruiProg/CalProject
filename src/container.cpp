@@ -312,11 +312,15 @@ bool Menu::run(){
 
 	switch(currentState){
 	case MainMenu:
-		cout << "[0]Display graph\n";
-		cout << "[1]Insert client\n";
-		cout << "[2]Remove client\n";
-		cout << "[3]Quit program\n";
+		cout << "[0]Mostrar grafo\n";
+		cout << "[1]Criar caminho optimizado\n";
+		cout << "[2]Inserir novo cliente\n";
+		cout << "[3]Remover um cliente\n";
+		cout << "[4]Sair do programa\n";
 		cout << endl << endl;
+		break;
+	case MakePath:
+		container.loadMatrix();
 		break;
 	case InsertClient:
 	{
@@ -411,15 +415,17 @@ bool Menu::run(){
 		container.displayGraph();
 		break;
 	case 1:
-		currentState = InsertClient;
+		currentState = MakePath;
 		break;
 	case 2:
-		currentState = RemoveClient;
+		currentState = InsertClient;
 		break;
 	case 3:
+		currentState = RemoveClient;
+		break;
+	case 4:
 		currentState = Quit;
 	}
 
 	return true;
 }
-

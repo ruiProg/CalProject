@@ -43,9 +43,10 @@ private:
 	Container container;
 	int currentState;
 	static const int MainMenu = 1;
-	static const int InsertClient = 2;
-	static const int RemoveClient = 3;
-	static const int Quit = 4;
+	static const int MakePath = 2;
+	static const int InsertClient = 3;
+	static const int RemoveClient = 4;
+	static const int Quit = 5;
 public:
 	Menu(ReadMap mapa);
 	bool run();
