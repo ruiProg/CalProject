@@ -565,7 +565,9 @@ bool Menu::run(){
 		Cliente client;
 		string text;
 		cout << "Escreve o nome do cliente\n";
-		cin >> text;
+		cin.clear();
+		cin.ignore();
+		getline(cin,text);
 		client.setNome(text); cout << endl;
 
 		cout << "Escreve a idade do cliente\n";
@@ -577,12 +579,11 @@ bool Menu::run(){
 			cout << "Escreve o NIF do cliente\n";
 			cin >> text;
 			int NIF = atoi(text.c_str());
-			if(container.validNIF(NIF)) cout << "true\n";
 			if(container.validNIF(NIF)){
 				client.setNIF(NIF);
 				break;
 			}
-			cout << endl;
+			cout << endl << endl;
 		}
 
 		for(int i=0; i < container.getGraph().getListIp().size(); i++)
@@ -591,7 +592,7 @@ bool Menu::run(){
 
 		cout << "Escreve a lista de pontos de interesse, usando o ID\n";
 		cout << "Ver tabela acima para saber o ID\n";
-		cout << "Escreve end para terminar processamento\n";
+		cout << "Escreve \"end\" para terminar processamento\n";
 
 		int cnt = 0;
 		set<int> tmpSet;
