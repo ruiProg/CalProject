@@ -224,7 +224,7 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 		for(int i = 0 ; i < menor.second.size();i++){
 			if(i!=0)
 				res.push_back(menor.second.at(i)->getName());
-			}
+		}
 
 		interestpoints.erase(itremove);
 
@@ -275,9 +275,9 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 	menor = matrix[(*it).first][0];
 
 	for(int i = 0 ; i < menor.second.size();i++){
-			if(i!=0)
-				res.push_back(menor.second.at(i)->getName());
-		}
+		if(i!=0)
+			res.push_back(menor.second.at(i)->getName());
+	}
 	return res;
 }
 
@@ -552,15 +552,16 @@ bool Menu::run(){
 		cout << endl << endl;
 		break;
 	case MakePath:
+		if (container.getClientes().size() == 0){
+			cout << "Não é possível criar um caminho pois não existem clientes." << endl << endl;
+			currentState = MainMenu;
+			break;
+		}
 		container.loadMatrix();
 		currentState = MainMenu;
 		break;
 	case InsertClient:
 	{
-		for(int i=0; i < container.getGraph().getListIp().size(); i++)
-			cout << "ID: " << i << ", Nome: " << container.getGraph().getListIp().at(i)->getName() << endl;
-		cout << endl << endl;
-
 		Cliente client;
 		string text;
 		cout << "Escreve o nome do cliente\n";
@@ -584,6 +585,10 @@ bool Menu::run(){
 			cout << endl;
 		}
 
+		for(int i=0; i < container.getGraph().getListIp().size(); i++)
+			cout << "ID: " << i << ", Nome: " << container.getGraph().getListIp().at(i)->getName() << endl;
+		cout << endl << endl;
+
 		cout << "Escreve a lista de pontos de interesse, usando o ID\n";
 		cout << "Ver tabela acima para saber o ID\n";
 		cout << "Escreve end para terminar processamento\n";
@@ -592,7 +597,7 @@ bool Menu::run(){
 		set<int> tmpSet;
 		while(cnt < 5 && text != "end"){
 			cout << "[" << cnt <<  "]: ";
-			getline(cin,text);
+			cin >> text;
 			if(text == "end")
 				break;
 			int nb = atoi(text.c_str());
@@ -613,6 +618,11 @@ bool Menu::run(){
 	}
 	case RemoveClient:
 	{
+		if (container.getClientes().size() == 0){
+			cout << "Não é possível remover clientes pois não existem." << endl << endl;
+			currentState = MainMenu;
+			break;
+		}
 		for(int i=0; i < container.getClientes().size(); i++)
 			cout << "ID: " << i << ", NIF: " << container.getClientes().at(i).getNIF() << ", Idade: " << container.getClientes().at(i).getIdade() << ", Nome: " << container.getClientes().at(i).getNome() << endl;
 		cout << endl << endl;
