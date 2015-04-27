@@ -122,6 +122,11 @@ void Container::loadStreets(){
 void Container::loadMatrix(){
 
 
+	if(clientes.size() == 0){
+		cout << "Não há clientes para construir um percurso otimizado!! ;)"<<endl;
+		return;
+	}
+
 	pair<double,vector<InterestPoint*> > matrixPoint;
 
 	graph.floydWarshallShortestPath();
