@@ -121,13 +121,15 @@ void Container::loadStreets(){
 
 void Container::loadMatrix(){
 
+
 	pair<double,vector<InterestPoint*> > matrixPoint;
-	matrixPoint.first = 0;
 
 	graph.floydWarshallShortestPath();
+
 	for(int i = 0 ; i < this->getGraph().getListIp().size();i++){
 		for(int j = 0; j <this->getGraph().getListIp().size();j++){
 
+			matrixPoint.first = 0;
 			if(i!=j){
 
 				vector<InterestPoint*> pontos;
@@ -146,6 +148,15 @@ void Container::loadMatrix(){
 			}
 		}
 	}
+
+	vector<string> nomes = getClientsInterestPointsName();
+	vector<string> paths = makePath(nomes);
+
+	cout << "-----------------------------"<<endl;
+	for(int i = 0; i < paths.size();i++){
+			cout << "Nome: "<< paths.at(i)<<endl;
+		}
+	cout << "-----------------------------"<<endl;
 	return;
 }
 
@@ -167,78 +178,110 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 			}
 		}
 	}
+
+
 	/////////////fim do cancro
 
 
-
-	//load do primeiro ponto
-
 	set<pair<int,string>>::iterator it = interestpoints.begin();
-	set<pair<int,string>>::iterator itremove;
+	set<pair<int,string>>::iterator itremove = interestpoints.begin();
 
-	pair<double,vector<InterestPoint*>> mais_curto = matrix[0][(*it).first];
-	pair<double,vector<InterestPoint*>> mais_curto2;
-	it++;
 
-	for(it; it!= interestpoints.end();it++){
+	pair<double,vector<InterestPoint*>> menor = matrix[0][(*it).first];
 
-		if(mais_curto.first > matrix[0][(*it).first].first){
-			mais_curto.first = matrix[0][(*it).first].first;
-			mais_curto.second = matrix[0][(*it).first].second;
-			indice = (*it).first;
+	for(it; it!= interestpoints.end(); it++){
+		if(menor.first > matrix[0][(*it).first].first){
+			menor = matrix[0][(*it).first];
 			itremove = it;
 		}
 	}
 
-	for(int i = 0; i < mais_curto.second.size();i++){
-			res.push_back(mais_curto.second.at(i)->getName());
-		}
-	interestpoints.erase(itremove);
 
-	//fim do load do primeiro ponto
+	//mete no resultado o nome dos pontos
+	indice = (*itremove).first;
+	cout << "INTERESTPOINTS INICIAL: "<< interestpoints.size()<<endl;
+	interestpoints.erase(itremove);
+	cout << "INTERESTPOINTS REMOVED: "<< interestpoints.size()<<endl;
+
+	for(int i = 0 ; i < menor.second.size();i++){
+		res.push_back(menor.second.at(i)->getName());
+	}
 
 	it = interestpoints.begin();
-	while(interestpoints.size() != 1){
+	itremove = interestpoints.begin();
 
-		mais_curto2.first = matrix[(*it).first][(*it).first].first;
-		mais_curto2.second = matrix[(*it).first][(*it).first].second;
-		it++;
-		for(it; it!= interestpoints.end();it++){
 
-			if(mais_curto2.first > matrix[indice][(*it).first].first){
-				mais_curto2.first = matrix[indice][(*it).first].first;
-				mais_curto2.second = matrix[indice][(*it).first].second;
-				indice = (*it).first;
+	do{
+		cout << "INTERESTPOINTS INICIAL no DO: "<< interestpoints.size()<<endl;
+		menor = matrix[indice][(*it).first];
+
+		for(it; it!= interestpoints.end(); it++){
+			if(menor.first > matrix[indice][(*it).first].first){
+				menor = matrix[indice][(*it).first];
 				itremove = it;
 			}
 		}
 
-		mais_curto= mais_curto2;
 
-		for(int x = 0; x < mais_curto.second.size();x++){
-			if(x!=0)
-				res.push_back(mais_curto.second.at(x)->getName());
-		}
+		indice = (*itremove).first;
+		it = interestpoints.begin();
+
+		for(int i = 0 ; i < menor.second.size();i++){
+			if(i!=0)
+				res.push_back(menor.second.at(i)->getName());
+			}
 
 		interestpoints.erase(itremove);
-		it++;
-	}
+		cout << "INTERESTPOINTS REMOVED no DO: "<< interestpoints.size()<<endl;
+
+	}while(interestpoints.size()!=2);
 
 	it = interestpoints.begin();
-	mais_curto2 = matrix[(*it).first][0];
-	for(int x = 0; x < mais_curto2.second.size();x++){
-		if(x!=0)
-			res.push_back(mais_curto2.second.at(x)->getName());
+	int id = 0;
+	menor = matrix[indice][(*it).first];
+
+	for(it; it!= interestpoints.end(); it++){
+		if(menor.first > matrix[1][(*it).first].first){
+			menor = matrix[1][(*it).first];
+			itremove = it;
+		}
 	}
+	interestpoints.erase(itremove);
+	indice = (*itremove).first;
 
 
-	//load do ultimo
+	int d = menor.second.size()-1;
+
+
+
+
 
 	return res;
+	indice = res.size()-1;
 
+	menor = matrix[indice][0];
 
+	for(int i =0;i < menor.second.size();i++){
+		res.push_back(menor.second.at(i)->getName());
+	}
+	return res;
 }
 
+vector<string> Container::getClientsInterestPointsName(){
+	set<string> nomes;
+	vector<string> res;
+
+	for(int i = 0; i < clientes.size();i++){
+		for(int j = 0; j < clientes.at(i).getPontosInteresse().size();j++){
+			nomes.insert(clientes.at(i).getPontosInteresse().at(j));
+		}
+	}
+	set<string>::iterator it = nomes.begin();
+	for (it;it!= nomes.end();it++){
+		res.push_back(*it);
+	}
+	return res;
+}
 
 void Container::displayGraph(){
 

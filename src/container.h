@@ -40,6 +40,7 @@ public:
 	vector<Bus> getBusList();
 	vector<Cliente> getClientes();
 	vector<string> makePath(vector<string> points);
+	vector<string> getClientsInterestPointsName();
 	Graph getGraph();
 };
 
