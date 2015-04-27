@@ -220,6 +220,17 @@ int Graph::find(InterestPoint* ip){
 	return -1;
 }
 
+int Graph::find(string ipName){
+
+	for(int i=0; i < listIP.size(); i++){
+
+		if(listIP.at(i)->getName() == ipName)
+			return i;
+	}
+
+	return -1;
+}
+
 double Graph::calcDistance(InterestPoint* src, InterestPoint* dest){
 
 	double lat1 = degreesToRadians(src->getCoords().second);

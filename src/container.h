@@ -16,9 +16,16 @@
 #include "Bus.h"
 
 
+struct EdgeContainer{
+	int index;
+	int IdSource;
+	int IdDest;
+};
+
 class Container{
 private:
 	vector<Cliente> clientes;
+	vector<EdgeContainer> edges;
 	vector<Bus> busList;
 	Graph graph;
 	GraphViewer* gv;
@@ -32,7 +39,10 @@ public:
 	void saveClientes();
 	void savePontosInteresses();
 	void displayGraph();
+	void displayRoute(vector<string> route);
 
+	void addEdge(int index, int IdSource, int IdDest);
+	int findEdge(int IdSource, int IdDest);
 	void addCliente(Cliente cliente);
 	void removeCliente(int NIF);
 	void addBus(Bus bus);

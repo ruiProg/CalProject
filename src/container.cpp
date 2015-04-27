@@ -152,11 +152,17 @@ void Container::loadMatrix(){
 	vector<string> nomes = getClientsInterestPointsName();
 	vector<string> paths = makePath(nomes);
 
+	displayGraph();
+	displayRoute(paths);
+
+	/*
 	cout << "-----------------------------"<<endl;
 	for(int i = 0; i < paths.size();i++){
 			cout << "Nome: "<< paths.at(i)<<endl;
 		}
 	cout << "-----------------------------"<<endl;
+	cout << endl << endl;
+*/
 	return;
 }
 
@@ -330,7 +336,10 @@ void Container::displayGraph(){
 
 		for(int j=0; j < nbStreets; j++){
 
-			gv->addEdge(idStreet,i,graph.find(graph.getListIp().at(i)->getConections().at(j).getDest()),EdgeType::DIRECTED);
+			int destIndex = graph.find(graph.getListIp().at(i)->getConections().at(j).getDest());
+
+			gv->addEdge(idStreet,i,destIndex,EdgeType::DIRECTED);
+			this->addEdge(idStreet,i,destIndex);
 			ss << graph.getListIp().at(i)->getConections().at(j).getDistance();
 			gv->setEdgeLabel(idStreet++,ss.str());
 			ss.str("");
@@ -338,6 +347,41 @@ void Container::displayGraph(){
 	}
 
 	gv->rearrange();
+}
+
+void Container::addEdge(int index, int IdSource, int IdDest){
+
+	EdgeContainer edge;
+
+	edge.index = index;
+	edge.IdSource = IdSource;
+	edge.IdDest= IdDest;
+
+	edges.push_back(edge);
+}
+
+int Container::findEdge(int IdSource, int IdDest){
+
+	for(int i=0; i < edges.size(); i++)
+		if(edges.at(i).IdSource == IdSource && edges.at(i).IdDest == IdDest)
+			return edges.at(i).index;
+
+	return -1;
+}
+
+
+void Container::displayRoute(vector<string> route){
+
+	for(int i=0; i < route.size() - 1; i++){
+		int piSource = graph.find(route.at(i));
+		int piDest = graph.find(route.at(i+1));
+
+		gv->setVertexColor(piSource, BLUE);
+
+		int edgeIndex = findEdge(piSource, piDest);
+
+		gv->setEdgeColor(edgeIndex, RED);
+	}
 }
 
 void Container::loadClientes(){

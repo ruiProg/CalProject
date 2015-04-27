@@ -84,6 +84,7 @@ public:
 	pair<double, double> getLimitsLatitude();
 	pair<double, double> getLimitsLongitude();
 	int find(InterestPoint* ip);
+	int find(string ipName);
 	double calcDistance(InterestPoint* src, InterestPoint* dest);
 
 	void floydWarshallShortestPath();
