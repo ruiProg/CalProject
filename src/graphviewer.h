@@ -176,6 +176,7 @@ class GraphViewer {
    */
   bool rearrange();
 
+
 #ifdef linux
   static pid_t procId;
 #endif

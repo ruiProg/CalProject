@@ -27,6 +27,11 @@ double degreesToRadians(double value);
 class Street;
 class Graph;
 
+struct street_data{
+	int index;
+	string street;
+};
+
 class InterestPoint {
 	string name;
 	pair<double, double> coords;

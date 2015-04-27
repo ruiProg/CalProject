@@ -155,14 +155,6 @@ void Container::loadMatrix(){
 	displayGraph();
 	displayRoute(paths);
 
-	/*
-	cout << "-----------------------------"<<endl;
-	for(int i = 0; i < paths.size();i++){
-			cout << "Nome: "<< paths.at(i)<<endl;
-		}
-	cout << "-----------------------------"<<endl;
-	cout << endl << endl;
-*/
 	return;
 }
 
@@ -172,7 +164,6 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 	vector<string> res;
 	int indice;
 
-	/////////////inicio do cancro LOAD DOS IDS E DOS NOMES
 	for(int i = 0 ; i < points.size(); i++){
 		for(int j = 0; j < graph.getListIp().size();j++){
 			if(graph.getListIp().at(j)->getName()== points.at(i)){
@@ -184,7 +175,6 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 			}
 		}
 	}
-	/////////////fim do cancro
 
 
 	set<pair<int,string>>::iterator it = interestpoints.begin();
@@ -201,11 +191,8 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 	}
 
 
-	//mete no resultado o nome dos pontos
 	indice = (*itremove).first;
-	cout << "INTERESTPOINTS INICIAL: "<< interestpoints.size()<<endl;
 	interestpoints.erase(itremove);
-	cout << "INTERESTPOINTS REMOVED: "<< interestpoints.size()<<endl;
 
 	for(int i = 0 ; i < menor.second.size();i++){
 		res.push_back(menor.second.at(i)->getName());
@@ -216,7 +203,6 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 
 
 	do{
-		cout << "INTERESTPOINTS INICIAL no DO: "<< interestpoints.size()<<endl;
 		menor = matrix[indice][(*it).first];
 
 		for(it; it!= interestpoints.end(); it++){
@@ -236,7 +222,6 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 			}
 
 		interestpoints.erase(itremove);
-		cout << "INTERESTPOINTS REMOVED no DO: "<< interestpoints.size()<<endl;
 
 	}while(interestpoints.size()!=2);
 
@@ -339,9 +324,9 @@ void Container::displayGraph(){
 			int destIndex = graph.find(graph.getListIp().at(i)->getConections().at(j).getDest());
 
 			gv->addEdge(idStreet,i,destIndex,EdgeType::DIRECTED);
-			this->addEdge(idStreet,i,destIndex);
+			this->addEdge(idStreet++,i,destIndex);
 			ss << graph.getListIp().at(i)->getConections().at(j).getDistance();
-			gv->setEdgeLabel(idStreet++,ss.str());
+			//gv->setEdgeLabel(idStreet++,ss.str());
 			ss.str("");
 		}
 	}
@@ -372,6 +357,11 @@ int Container::findEdge(int IdSource, int IdDest){
 
 void Container::displayRoute(vector<string> route){
 
+
+	stringstream ss;
+
+	vector<street_data> streets;
+
 	for(int i=0; i < route.size() - 1; i++){
 		int piSource = graph.find(route.at(i));
 		int piDest = graph.find(route.at(i+1));
@@ -380,7 +370,34 @@ void Container::displayRoute(vector<string> route){
 
 		int edgeIndex = findEdge(piSource, piDest);
 
+		string label;
+		ss << i + 1;
+
+		ss >> label;
+
+		bool found = false;
+		for(int i = 0 ; i < streets.size();i++){
+			if(streets.at(i).index ==edgeIndex ){
+				streets.at(i).street.append(", ");
+				streets.at(i).street.append(label);
+				label = streets.at(i).street;
+				found = true;
+				break;
+			}
+		}
+
+		if(!found){
+			street_data temp;
+			temp.index = edgeIndex;
+			temp.street = label;
+			streets.push_back(temp);
+		}
+
+
+		gv->setEdgeLabel(edgeIndex,label);
 		gv->setEdgeColor(edgeIndex, RED);
+
+		ss.clear();
 	}
 }
 
