@@ -178,8 +178,6 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 			}
 		}
 	}
-
-
 	/////////////fim do cancro
 
 
@@ -236,34 +234,54 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 
 	}while(interestpoints.size()!=2);
 
+
+	int id = (*itremove).first;
 	it = interestpoints.begin();
-	int id = 0;
-	menor = matrix[indice][(*it).first];
+	itremove = interestpoints.end();
+
+	menor = matrix[id][(*it).first];
 
 	for(it; it!= interestpoints.end(); it++){
-		if(menor.first > matrix[1][(*it).first].first){
-			menor = matrix[1][(*it).first];
+		if(menor.first > matrix[id][(*it).first].first){
+			menor = matrix[id][(*it).first];
 			itremove = it;
 		}
 	}
-	interestpoints.erase(itremove);
+
+	for(int i = 0 ; i < menor.second.size();i++){
+		if(i!=0)
+			res.push_back(menor.second.at(i)->getName());
+	}
+
+
+
+
+	it = interestpoints.begin();
+
+	if(it == itremove)
+		itremove = interestpoints.end();
+	else
+		itremove = interestpoints.begin();
+
+
 	indice = (*itremove).first;
 
+	interestpoints.begin();
+	menor = matrix[indice][(*it).first];
 
-	int d = menor.second.size()-1;
-
-
-
-
-
-	return res;
-	indice = res.size()-1;
-
-	menor = matrix[indice][0];
-
-	for(int i =0;i < menor.second.size();i++){
-		res.push_back(menor.second.at(i)->getName());
+	for(int i = 0 ; i < menor.second.size();i++){
+		if(i!=0)
+			res.push_back(menor.second.at(i)->getName());
 	}
+
+
+
+	menor = matrix[(*it).first][0];
+
+	for(int i = 0 ; i < menor.second.size();i++){
+			if(i!=0)
+				res.push_back(menor.second.at(i)->getName());
+		}
 	return res;
 }
 
