@@ -378,8 +378,7 @@ void Container::displayRoute(vector<string> route){
 		bool found = false;
 		for(int i = 0 ; i < streets.size();i++){
 			if(streets.at(i).index ==edgeIndex ){
-				streets.at(i).street.append(", ");
-				streets.at(i).street.append(label);
+				streets.at(i).street += ", "+label;
 				label = streets.at(i).street;
 				found = true;
 				break;
