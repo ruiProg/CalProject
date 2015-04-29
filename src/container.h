@@ -62,7 +62,8 @@ private:
 	static const int MakePath = 2;
 	static const int InsertClient = 3;
 	static const int RemoveClient = 4;
-	static const int Quit = 5;
+	static const int ShowClients = 5;
+	static const int Quit = 6;
 public:
 	Menu(ReadMap mapa);
 	bool run();

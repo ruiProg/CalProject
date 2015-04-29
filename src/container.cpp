@@ -181,7 +181,6 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 		}
 	}
 
-
 	set<pair<int,string>>::iterator it = interestpoints.begin();
 	set<pair<int,string>>::iterator itremove = interestpoints.begin();
 
@@ -203,11 +202,9 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 		res.push_back(menor.second.at(i)->getName());
 	}
 
-	it = interestpoints.begin();
-	itremove = interestpoints.begin();
-
-
-	do{
+	while(interestpoints.size()>0){
+		it = interestpoints.begin();
+		itremove = interestpoints.begin();
 		menor = matrix[indice][(*it).first];
 
 		for(it; it!= interestpoints.end(); it++){
@@ -217,67 +214,24 @@ vector<string> Container::makePath(vector<string> points){ // estes pontos já n
 			}
 		}
 
-
-		indice = (*itremove).first;
 		it = interestpoints.begin();
 
 		for(int i = 0 ; i < menor.second.size();i++){
 			if(i!=0)
 				res.push_back(menor.second.at(i)->getName());
 		}
-
+		indice = (*itremove).first;
 		interestpoints.erase(itremove);
 
-	}while(interestpoints.size()!=2);
-
-
-	int id = (*itremove).first;
-	it = interestpoints.begin();
-	itremove = interestpoints.end();
-
-	menor = matrix[id][(*it).first];
-
-	for(it; it!= interestpoints.end(); it++){
-		if(menor.first > matrix[id][(*it).first].first){
-			menor = matrix[id][(*it).first];
-			itremove = it;
-		}
 	}
 
+
+	menor = matrix[indice][0];
 	for(int i = 0 ; i < menor.second.size();i++){
 		if(i!=0)
 			res.push_back(menor.second.at(i)->getName());
 	}
 
-
-
-
-	it = interestpoints.begin();
-
-	if(it == itremove)
-		itremove = interestpoints.end();
-	else
-		itremove = interestpoints.begin();
-
-
-	indice = (*itremove).first;
-
-	interestpoints.begin();
-	menor = matrix[indice][(*it).first];
-
-	for(int i = 0 ; i < menor.second.size();i++){
-		if(i!=0)
-			res.push_back(menor.second.at(i)->getName());
-	}
-
-
-
-	menor = matrix[(*it).first][0];
-
-	for(int i = 0 ; i < menor.second.size();i++){
-		if(i!=0)
-			res.push_back(menor.second.at(i)->getName());
-	}
 	return res;
 }
 
@@ -548,7 +502,8 @@ bool Menu::run(){
 		cout << "[1]Criar caminho optimizado\n";
 		cout << "[2]Inserir novo cliente\n";
 		cout << "[3]Remover um cliente\n";
-		cout << "[4]Sair do programa\n";
+		cout << "[4]Mostrar clientes\n";
+		cout << "[5]Sair do programa\n";
 		cout << endl << endl;
 		break;
 	case MakePath:
@@ -565,9 +520,7 @@ bool Menu::run(){
 		Cliente client;
 		string text;
 		cout << "Escreve o nome do cliente\n";
-		cin.clear();
-		cin.ignore();
-		getline(cin,text);
+		cin >> text;
 		client.setNome(text); cout << endl;
 
 		cout << "Escreve a idade do cliente\n";
@@ -579,11 +532,12 @@ bool Menu::run(){
 			cout << "Escreve o NIF do cliente\n";
 			cin >> text;
 			int NIF = atoi(text.c_str());
+			if(container.validNIF(NIF)) cout << "true\n";
 			if(container.validNIF(NIF)){
 				client.setNIF(NIF);
 				break;
 			}
-			cout << endl << endl;
+			cout << endl;
 		}
 
 		for(int i=0; i < container.getGraph().getListIp().size(); i++)
@@ -592,7 +546,7 @@ bool Menu::run(){
 
 		cout << "Escreve a lista de pontos de interesse, usando o ID\n";
 		cout << "Ver tabela acima para saber o ID\n";
-		cout << "Escreve \"end\" para terminar processamento\n";
+		cout << "Escreve end para terminar processamento\n";
 
 		int cnt = 0;
 		set<int> tmpSet;
@@ -647,6 +601,23 @@ bool Menu::run(){
 		container.saveClientes();
 		container.savePontosInteresses();
 		return false;
+	case ShowClients:
+	{
+		for (int i = 0; i < container.getClientes().size(); i++)
+		{
+			cout << "Nome: " << container.getClientes().at(i).getNome() << endl;
+			cout << "Idade: " << container.getClientes().at(i).getIdade() << endl;
+			cout << "NIF: " << container.getClientes().at(i).getNIF() << endl;
+			cout << "Pontos de interesse:" << endl;
+			for (int j = 0; j < container.getClientes().at(i).getPontosInteresse().size(); j++)
+			{
+				cout << (j + 1) << " - " << container.getClientes().at(i).getPontosInteresse().at(j) << endl;
+			}
+			cout << endl;
+		}
+		currentState = MainMenu;
+		break;
+	}
 	}
 
 	char c = getchar();
@@ -668,8 +639,10 @@ bool Menu::run(){
 		currentState = RemoveClient;
 		break;
 	case 4:
+		currentState = ShowClients;
+		break;
+	case 5:
 		currentState = Quit;
 	}
 
 	return true;
-}
